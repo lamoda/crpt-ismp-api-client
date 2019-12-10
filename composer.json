@@ -1,0 +1,44 @@
+{
+  "name": "lamoda/crpt-ismp-api-client",
+  "description": "Client for CRPT ISMP system",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Lamoda developers",
+      "homepage": "https://tech.lamoda.ru/"
+    }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "Lamoda\\IsmpClient\\": "./src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Lamoda\\IsmpClient\\Tests\\": "./tests/"
+    }
+  },
+  "require": {
+    "php": "^7.2",
+    "doctrine/annotations": "^1.6",
+    "doctrine/cache": "^1.8",
+    "guzzlehttp/guzzle": "^6.3",
+    "symfony/property-access": "^4.2",
+    "symfony/serializer": "^4.2.10"
+  },
+  "require-dev": {
+    "ext-json": "*",
+    "phpunit/phpunit": "^7.5"
+  },
+  "config": {
+    "platform": {
+      "php": "7.2"
+    },
+    "preferred-install": {
+      "*": "dist"
+    },
+    "sort-packages": true
+  }
+}
