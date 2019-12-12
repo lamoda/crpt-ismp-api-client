@@ -11,15 +11,16 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         php: [7.2, 7.3, 7.4]
+        os: [ubuntu-18.04]
         env: [
           'low',
           'high',
         ]
-    name: PHP ${{ matrix.php }} Test ${{ matrix.env }}
+    name: PHP ${{ matrix.php }} Test ${{ matrix.env }} on ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v1
@@ -50,6 +51,9 @@ jobs:
         if [ "$DEPENDENCIES" = 'low' ]; then
             composer update $DEFAULT_COMPOSER_FLAGS --prefer-lowest
         fi;
-
       env:
         DEPENDENCIES: ${{ matrix.env}}
+
+    - name: Run tests
+      run: ./vendor/bin/phpunit
+      continue-on-error: true
