@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Lamoda\IsmpClient\V3\Dto;
 
+use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse\Body;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 final class FacadeDocBodyResponse
@@ -41,8 +42,13 @@ final class FacadeDocBodyResponse
      * @var string
      */
     private $content;
-
-    /** @var array|null */
+    /**
+     * @var Body|null
+     */
+    private $body;
+    /**
+     * @var array|null
+     */
     private $errors;
 
     public function __construct(
@@ -51,7 +57,8 @@ final class FacadeDocBodyResponse
         string $type,
         string $status,
         string $senderName,
-        string $content
+        string $content,
+        ?Body $body = null
     ) {
         $this->number = $number;
         $this->docDate = $docDate;
@@ -59,6 +66,7 @@ final class FacadeDocBodyResponse
         $this->status = $status;
         $this->senderName = $senderName;
         $this->content = $content;
+        $this->body = $body;
     }
 
     public function getNumber(): string
@@ -89,6 +97,11 @@ final class FacadeDocBodyResponse
     public function getContent(): string
     {
         return $this->content;
+    }
+
+    public function getBody(): ?Body
+    {
+        return $this->body;
     }
 
     public function getErrors(): ?array

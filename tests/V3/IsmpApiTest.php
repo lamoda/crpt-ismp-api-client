@@ -36,7 +36,7 @@ final class IsmpApiTest extends TestCase
     private const RANDOM_DATA = '2b212c99-9955-45c7-8594-9d3aa59eae04';
     private const SERIALIZED_VALUE = '{"test:"value"}';
     private const API_RESPONSE = 'stub_api_response';
-    const IDENTITY = 'eb852349-647f-468f-bb90-d26a4d975a88';
+    private const IDENTITY = 'eb852349-647f-468f-bb90-d26a4d975a88';
 
     /**
      * @var ClientInterface|MockObject

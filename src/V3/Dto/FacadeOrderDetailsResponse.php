@@ -30,7 +30,7 @@ final class FacadeOrderDetailsResponse
      */
     private $orderStatus;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $orderStatusDetails;
     /**

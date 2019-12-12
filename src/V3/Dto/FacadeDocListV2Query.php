@@ -37,15 +37,15 @@ final class FacadeDocListV2Query
      */
     private $dateTo;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $number;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $documentStatus;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $documentType;
     /**
@@ -53,27 +53,27 @@ final class FacadeDocListV2Query
      */
     private $inputFormat;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $participantInn;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $order;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $did;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $orderedColumnValue;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $orderColumn;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $pageDir;
     /**
