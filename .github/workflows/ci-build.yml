@@ -13,6 +13,7 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
+      max-parallel: 8
       matrix:
         php: [7.2, 7.3, 7.4]
         os: [ubuntu-18.04, macos-latest]
