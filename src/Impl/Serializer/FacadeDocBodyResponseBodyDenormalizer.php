@@ -57,6 +57,10 @@ final class FacadeDocBodyResponseBodyDenormalizer implements ContextAwareDenorma
      */
     public function setDenormalizer(DenormalizerInterface $denormalizer): void
     {
+        if (!$denormalizer instanceof SerializerInterface) {
+            throw new InvalidArgumentException('Denormalizer must implement serializer interface also');
+        }
+
         $this->denormalizer = $denormalizer;
     }
 

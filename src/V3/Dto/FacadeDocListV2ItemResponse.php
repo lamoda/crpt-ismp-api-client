@@ -8,6 +8,8 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 final class FacadeDocListV2ItemResponse
 {
+    private const DATE_FORMAT = '';
+
     /**
      * @var string
      */
@@ -62,9 +64,25 @@ final class FacadeDocListV2ItemResponse
         return $this->docDate;
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function getDocDateDateTime(): \DateTimeImmutable
+    {
+        return new \DateTimeImmutable($this->docDate);
+    }
+
     public function getReceivedAt(): string
     {
         return $this->receivedAt;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function getReceivedAtDateTime(): \DateTimeImmutable
+    {
+        return new \DateTimeImmutable($this->receivedAt);
     }
 
     public function getType(): string

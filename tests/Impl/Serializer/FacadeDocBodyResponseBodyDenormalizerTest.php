@@ -3,6 +3,7 @@
 namespace Impl\Serializer;
 
 use Lamoda\IsmpClient\Impl\Serializer\FacadeDocBodyResponseBodyDenormalizer;
+use Lamoda\IsmpClient\Tests\Stub\SerializerDenormalizer;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse\Body;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -23,9 +24,7 @@ final class FacadeDocBodyResponseBodyDenormalizerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->inner = $this->getMockBuilder(DenormalizerInterface::class)
-            ->setMethods(['serialize', 'denormalize', 'supportsDenormalization'])
-            ->getMock();
+        $this->inner = $this->createMock(SerializerDenormalizer::class);
         $this->denormalizer = new FacadeDocBodyResponseBodyDenormalizer();
     }
 
@@ -82,6 +81,12 @@ final class FacadeDocBodyResponseBodyDenormalizerTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $this->denormalizer->denormalize([], \stdClass::class);
+    }
+
+    public function testSetDenormalizerWithNoSerializer(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->denormalizer->setDenormalizer($this->createMock(DenormalizerInterface::class));
     }
 
     public function testDenormalize(): void

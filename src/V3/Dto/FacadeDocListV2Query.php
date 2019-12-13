@@ -24,6 +24,7 @@ final class FacadeDocListV2Query
     public const ORDER_DESC = 'DESC';
 
     public const ORDER_COLUMN_DOC_DATE = 'docDate';
+    public const ORDER_COLUMN_RECEIVED_AT = 'receivedAt';
 
     public const PAGE_DIR_NEXT = 'NEXT';
     public const PAGE_DIR_PREV = 'PREV';
