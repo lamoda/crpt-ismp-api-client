@@ -15,7 +15,11 @@ final class FacadeDocListV2Response
      */
     private $results;
 
-    public function __construct(int $total, FacadeDocListV2ItemResponse ...$results)
+    /**
+     * @param int $total
+     * @param FacadeDocListV2ItemResponse[] $results
+     */
+    public function __construct(int $total, array $results = [])
     {
         $this->total = $total;
         $this->results = $results;

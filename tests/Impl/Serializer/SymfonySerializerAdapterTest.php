@@ -41,38 +41,44 @@ final class SymfonySerializerAdapterTest extends TestCase
         return [
             [
                 AuthCertResponse::class,
-                json_encode([
-                    'token' => 'test_token',
-                ]),
+                json_encode(
+                    [
+                        'token' => 'test_token',
+                    ]
+                ),
                 new AuthCertResponse(
                     'test_token'
                 ),
             ],
             [
                 FacadeDocListV2Response::class,
-                json_encode([
-                    'total' => 25,
-                    'results' => [
-                        [
-                            'number' => 'b917dfb0-523d-41e0-9e64-e8bf0052c5bd',
-                            'docDate' => '2019-01-18T06:45:35.630Z',
-                            'receivedAt' => '2019-01-19T06:45:35.630Z',
-                            'type' => 'LP_INTRODUCE_GOODS',
-                            'status' => 'CHECKED_OK',
-                            'senderName' => 'test',
+                json_encode(
+                    [
+                        'total' => 25,
+                        'results' => [
+                            [
+                                'number' => 'b917dfb0-523d-41e0-9e64-e8bf0052c5bd',
+                                'docDate' => '2019-01-18T06:45:35.630Z',
+                                'receivedAt' => '2019-01-19T06:45:35.630Z',
+                                'type' => 'LP_INTRODUCE_GOODS',
+                                'status' => 'CHECKED_OK',
+                                'senderName' => 'test',
+                            ],
                         ],
-                    ],
-                ]),
+                    ]
+                ),
                 new FacadeDocListV2Response(
                     25,
-                    new FacadeDocListV2ItemResponse(
-                        'b917dfb0-523d-41e0-9e64-e8bf0052c5bd',
-                        '2019-01-18T06:45:35.630Z',
-                        '2019-01-19T06:45:35.630Z',
-                        'LP_INTRODUCE_GOODS',
-                        'CHECKED_OK',
-                        'test'
-                    )
+                    [
+                        new FacadeDocListV2ItemResponse(
+                            'b917dfb0-523d-41e0-9e64-e8bf0052c5bd',
+                            '2019-01-18T06:45:35.630Z',
+                            '2019-01-19T06:45:35.630Z',
+                            'LP_INTRODUCE_GOODS',
+                            'CHECKED_OK',
+                            'test'
+                        ),
+                    ]
                 ),
             ],
         ];

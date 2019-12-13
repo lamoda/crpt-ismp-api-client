@@ -26,11 +26,12 @@
         "doctrine/cache": "^1.8",
         "guzzlehttp/guzzle": "^6.3",
         "symfony/property-access": "^4.2",
+        "symfony/property-info": "^4.3",
         "symfony/serializer": "^4.2.10"
     },
     "require-dev": {
         "ext-json": "*",
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^8.5"
     },
     "config": {
         "platform": {

@@ -24,7 +24,7 @@ final class FacadeCisListResponseDenormalizerTest extends TestCase
      */
     private $inner;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->inner = $this->createMock(DenormalizerInterface::class);
         $this->denormalizer = new FacadeCisListResponseDenormalizer();
@@ -102,6 +102,13 @@ final class FacadeCisListResponseDenormalizerTest extends TestCase
         ], FacadeCisListResponse::class);
 
         $this->assertEquals($expectedResult, $result);
+    }
 
+    public function testHasCacheableSupportsMethod(): void
+    {
+        $this->denormalizer->setDenormalizer($this->inner);
+
+        $result = $this->denormalizer->hasCacheableSupportsMethod();
+        $this->assertFalse($result);
     }
 }

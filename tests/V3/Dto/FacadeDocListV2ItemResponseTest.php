@@ -14,7 +14,7 @@ final class FacadeDocListV2ItemResponseTest extends TestCase
      */
     private $model;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->model = new FacadeDocListV2ItemResponse(
             'document_number_1',
