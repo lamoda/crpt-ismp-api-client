@@ -217,10 +217,10 @@ final class FacadeDocListV2Query
         $query = [];
 
         self::appendIfNotNull($query, 'dateTo', $this->dateTo, static function (\DateTimeInterface $value) {
-            return $value->format('Y-m-d\TH:i:s.000\Z');
+            return $value->format(DATE_RFC3339_EXTENDED);
         });
         self::appendIfNotNull($query, 'dateFrom', $this->dateFrom, static function (\DateTimeInterface $value) {
-            return $value->format('Y-m-d\TH:i:s.000\Z');
+            return $value->format(DATE_RFC3339_EXTENDED);
         });
         self::appendIfNotNull($query, 'number', $this->number);
         self::appendIfNotNull($query, 'documentStatus', $this->documentStatus);
