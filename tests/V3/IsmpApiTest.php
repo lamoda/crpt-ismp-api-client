@@ -244,7 +244,7 @@ final class IsmpApiTest extends TestCase
     {
         $query = new FacadeDocListV2Query();
         $query->setDocumentStatus(FacadeDocListV2Query::DOCUMENT_STATUS_CHECKED_OK);
-        $query->setDateFrom(new \DateTimeImmutable('2019-01-01 11:12:13'));
+        $query->setDateFrom(new \DateTimeImmutable('2019-01-01 11:12:13', new \DateTimeZone('UTC')));
         $expectedResult = new FacadeDocListV2Response(0);
 
         $this->serializer
@@ -269,7 +269,7 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::HTTP_ERRORS => true,
                     RequestOptions::QUERY => [
                         'documentStatus' => FacadeDocListV2Query::DOCUMENT_STATUS_CHECKED_OK,
-                        'dateFrom' => '2019-01-01T11:12:13.000Z',
+                        'dateFrom' => '2019-01-01T11:12:13.000+00:00',
                         'limit' => $query->getLimit()
                     ],
                 ]
