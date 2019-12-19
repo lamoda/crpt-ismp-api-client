@@ -5,6 +5,7 @@ Lamoda CRPT ISMP Api Client
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/lamoda/crpt-ismp-api-client/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/lamoda/crpt-ismp-api-client/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/lamoda/crpt-ismp-api-client/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/lamoda/crpt-ismp-api-client/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/lamoda/crpt-ismp-api-client/badges/build.png?b=master)](https://scrutinizer-ci.com/g/lamoda/crpt-ismp-api-client/build-status/master)
+[![Build Status](https://github.com/lamoda/crpt-ismp-api-client/workflows/CI/badge.svg?branch=master)](https://github.com/lamoda/crpt-ismp-api-client/workflows/CI/badge.svg?branch=master)
 
 ## Installation
 
@@ -16,7 +17,7 @@ composer require lamoda/crpt-ismp-api-client
 
 ## Description
 
-This library implements API client for the Labeling and Traceability Information System 
+This library implements API client for the Labeling and Traceability Information System
 (or "Информационная система маркировки и прослеживаемости" in Russian, ISMP) of the CRPT (https://markirovka.crpt.ru)
 
 Library implements V3 version of ISMP Api's
