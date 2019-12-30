@@ -13,6 +13,11 @@ final class FacadeDocBodyResponse
     public const STATUS_CHECKED_NOT_OK = 'CHECKED_NOT_OK';
     public const STATUS_PROCESSING_ERROR = 'PROCESSING_ERROR';
     public const STATUS_CHECKED_OK = 'CHECKED_OK';
+    public const STATUS_UNDEFINED = 'UNDEFINED';
+    public const STATUS_CANCELLED = 'CANCELLED';
+    public const STATUS_ACCEPTED = 'ACCEPTED';
+    public const STATUS_WAIT_ACCEPTANCE = 'WAIT_ACCEPTANCE';
+    public const STATUS_WAIT_PARTICIPANT_REGISTRATION = 'WAIT_PARTICIPANT_REGISTRATION';
 
     /**
      * @var string

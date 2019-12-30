@@ -394,6 +394,40 @@ final class IsmpApiTest extends TestCase
         $this->assertEquals(self::API_RESPONSE, $result);
     }
 
+    public function testLkReceiptSend(): void
+    {
+        $request = new DocumentCreateRequest('document', 'MANUAL', 'signature');
+
+        $this->serializer
+            ->method('serialize')
+            ->with($request)
+            ->willReturn(self::SERIALIZED_VALUE);
+
+        $this->client->expects($this->once())
+            ->method('request')
+            ->with(
+                'POST',
+                'api/v3/lk/receipt/send',
+                [
+                    RequestOptions::BODY => self::SERIALIZED_VALUE,
+                    RequestOptions::HEADERS => [
+                        'Content-Type' => 'application/json',
+                        'Authorization' => 'Bearer ' . self::TOKEN
+                    ],
+                    RequestOptions::HTTP_ERRORS => true,
+                    RequestOptions::QUERY => null,
+                ]
+            )
+            ->willReturn(
+                (new Response())
+                    ->withBody(stream_for(self::API_RESPONSE))
+            );
+
+        $result = $this->api->lkReceiptSend(self::TOKEN, $request);
+
+        $this->assertEquals(self::API_RESPONSE, $result);
+    }
+
     public function testLkDocumentsShipmentCreate(): void
     {
         $request = new DocumentCreateRequest('document', 'MANUAL', 'signature');
