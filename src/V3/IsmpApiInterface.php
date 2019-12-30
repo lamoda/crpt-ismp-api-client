@@ -33,6 +33,8 @@ interface IsmpApiInterface
 
     public function lkImportSend(string $token, DocumentCreateRequest $request): string;
 
+    public function lkReceiptSend(string $token, DocumentCreateRequest $request): string;
+
     public function lkDocumentsShipmentCreate(string $token, DocumentCreateRequest $request): string;
 
     public function lkDocumentsAcceptanceCreate(string $token, DocumentCreateRequest $request): string;

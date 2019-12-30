@@ -105,6 +105,13 @@ final class IsmpApi implements IsmpApiInterface
         return $this->request('POST', '/api/v3/lk/import/send', $body, null, $token);
     }
 
+    public function lkReceiptSend(string $token, DocumentCreateRequest $request): string
+    {
+        $body = $this->serializer->serialize($request);
+
+        return $this->request('POST', '/api/v3/lk/receipt/send', $body, null, $token);
+    }
+
     public function lkDocumentsShipmentCreate(string $token, DocumentCreateRequest $request): string
     {
         $body = $this->serializer->serialize($request);
