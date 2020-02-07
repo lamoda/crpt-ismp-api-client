@@ -31,6 +31,8 @@ interface IsmpApiInterface
 
     public function facadeDocBody(string $token, string $docId): FacadeDocBodyResponse;
 
+    public function lkDocumentsCreate(string $token, DocumentCreateRequest $request): string;
+
     public function lkImportSend(string $token, DocumentCreateRequest $request): string;
 
     public function lkReceiptSend(string $token, DocumentCreateRequest $request): string;

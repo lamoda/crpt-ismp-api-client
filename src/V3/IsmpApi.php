@@ -98,6 +98,22 @@ final class IsmpApi implements IsmpApiInterface
         return $this->serializer->deserialize(FacadeCisListResponse::class, $response);
     }
 
+    public function lkDocumentsCreate(string $token, DocumentCreateRequest $request): string
+    {
+        assert($request->getType() !== null, 'Document type is required for lkDocumentsCreate');
+        assert($request->getProductGroup() !== null, 'Product group is required for lkDocumentsCreate');
+
+        $body = $this->serializer->serialize($request);
+
+        return $this->request(
+            'POST',
+            '/api/v3/lk/documents/create',
+            $body,
+            ['pg' => $request->getProductGroup()],
+            $token
+        );
+    }
+
     public function lkImportSend(string $token, DocumentCreateRequest $request): string
     {
         $body = $this->serializer->serialize($request);

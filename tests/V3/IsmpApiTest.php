@@ -23,6 +23,8 @@ use Lamoda\IsmpClient\V3\Dto\FacadeOrderDetailsResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderRequest;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderResponse;
 use Lamoda\IsmpClient\V3\Dto\ProductInfoResponse;
+use Lamoda\IsmpClient\V3\Enum\DocumentLkType;
+use Lamoda\IsmpClient\V3\Enum\ProductGroup;
 use Lamoda\IsmpClient\V3\IsmpApi;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -358,6 +360,46 @@ final class IsmpApiTest extends TestCase
         $result = $this->api->facadeCisList(self::TOKEN, self::IDENTITY);
 
         $this->assertEquals($expectedResult, $result);
+    }
+
+    public function testLkDocumentsCreate(): void
+    {
+        $request = new DocumentCreateRequest(
+            'document',
+            'MANUAL',
+            'signature',
+            ProductGroup::SHOES,
+            DocumentLkType::LP_INTRODUCE_GOODS
+        );
+
+        $this->serializer
+            ->method('serialize')
+            ->with($request)
+            ->willReturn(self::SERIALIZED_VALUE);
+
+        $this->client->expects($this->once())
+            ->method('request')
+            ->with(
+                'POST',
+                'api/v3/lk/documents/create',
+                [
+                    RequestOptions::BODY => self::SERIALIZED_VALUE,
+                    RequestOptions::HEADERS => [
+                        'Content-Type' => 'application/json',
+                        'Authorization' => 'Bearer ' . self::TOKEN,
+                    ],
+                    RequestOptions::HTTP_ERRORS => true,
+                    RequestOptions::QUERY => ['pg' => ProductGroup::SHOES],
+                ]
+            )
+            ->willReturn(
+                (new Response())
+                    ->withBody(stream_for(self::API_RESPONSE))
+            );
+
+        $result = $this->api->lkDocumentsCreate(self::TOKEN, $request);
+
+        $this->assertEquals(self::API_RESPONSE, $result);
     }
 
     public function testLkImportSend(): void

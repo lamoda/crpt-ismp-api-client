@@ -12,12 +12,19 @@ final class FacadeDocListV2Query
     public const DOCUMENT_STATUS_PROCESSING_ERROR = 'PROCESSING_ERROR';
     public const DOCUMENT_STATUS_UNDEFINED = 'UNDEFINED';
 
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_INTRODUCE_GOODS = 'LP_INTRODUCE_GOODS';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_INTRODUCE_GOODS_CSV = 'LP_INTRODUCE_GOODS_CSV';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_INTRODUCE_GOODS_XML = 'LP_INTRODUCE_GOODS_XML';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_SHIP_GOODS = 'LP_SHIP_GOODS';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_SHIP_GOODS_XML = 'LP_SHIP_GOODS_XML';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_ACCEPT_GOODS = 'LP_ACCEPT_GOODS';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_ACCEPT_GOODS_XML = 'LP_ACCEPT_GOODS_XML';
 
     public const ORDER_ASC = 'ASC';
