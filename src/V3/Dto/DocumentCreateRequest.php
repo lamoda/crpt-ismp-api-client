@@ -18,12 +18,27 @@ final class DocumentCreateRequest
      * @var string
      */
     private $signature;
+    /**
+     * @var string|null
+     */
+    private $productGroup;
+    /**
+     * @var string|null
+     */
+    private $type;
 
-    public function __construct(string $productDocument, string $documentFormat, string $signature)
-    {
+    public function __construct(
+        string $productDocument,
+        string $documentFormat,
+        string $signature,
+        string $productGroup = null,
+        string $type = null
+    ) {
         $this->productDocument = $productDocument;
         $this->documentFormat = $documentFormat;
         $this->signature = $signature;
+        $this->productGroup = $productGroup;
+        $this->type = $type;
     }
 
     public function getProductDocument(): string
@@ -39,5 +54,15 @@ final class DocumentCreateRequest
     public function getSignature(): string
     {
         return $this->signature;
+    }
+
+    public function getProductGroup(): ?string
+    {
+        return $this->productGroup;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
     }
 }
