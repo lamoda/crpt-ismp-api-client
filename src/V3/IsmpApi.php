@@ -15,6 +15,7 @@ use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeCisListResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2Query;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2Response;
+use Lamoda\IsmpClient\V3\Dto\FacadeMarkedProductsResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderDetailsResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderRequest;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderResponse;
@@ -96,6 +97,14 @@ final class IsmpApi implements IsmpApiInterface
 
         /* @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->serializer->deserialize(FacadeCisListResponse::class, $response);
+    }
+
+    public function facadeMarkedProducts(string $token, string $uit): FacadeMarkedProductsResponse
+    {
+        $response = $this->request('GET', '/api/v3/facade/marked_products', null, ['uit' => $uit], $token);
+
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return $this->serializer->deserialize(FacadeMarkedProductsResponse::class, $response);
     }
 
     public function lkDocumentsCreate(string $token, DocumentCreateRequest $request): string

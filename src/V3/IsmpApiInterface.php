@@ -12,6 +12,7 @@ use Lamoda\IsmpClient\V3\Dto\FacadeCisListResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2Query;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2Response;
+use Lamoda\IsmpClient\V3\Dto\FacadeMarkedProductsResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderDetailsResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderRequest;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderResponse;
@@ -44,4 +45,6 @@ interface IsmpApiInterface
     public function productInfo(string $token, array $gtins): ProductInfoResponse;
 
     public function facadeCisList(string $token, string $cis): FacadeCisListResponse;
+
+    public function facadeMarkedProducts(string $token, string $uit): FacadeMarkedProductsResponse;
 }
