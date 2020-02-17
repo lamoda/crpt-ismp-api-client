@@ -10,7 +10,6 @@ use Lamoda\IsmpClient\V3\Dto\AuthCertRequest;
 use Lamoda\IsmpClient\V3\Dto\AuthCertResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2ItemResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2Response;
-use Lamoda\IsmpClient\V3\Dto\FacadeMarkedProductsCertDoc;
 use Lamoda\IsmpClient\V3\Dto\FacadeMarkedProductsResponse;
 use PHPUnit\Framework\TestCase;
 
@@ -83,74 +82,113 @@ final class SymfonySerializerAdapterTest extends TestCase
                     ]
                 ),
             ],
+            'agent item' => [
+                FacadeMarkedProductsResponse::class,
+                json_encode(
+                    [
+                        'cis' => '010290000021360921&XjcbJ.KYB+pT',
+                        'gtin' => '02900000213609',
+                        'sgtin' => '&XjcbJ.KYB+pT',
+                        'producerName' => 'ООО "ОБУВЬОПТ"',
+                        'producerInn' => '7731362094',
+                        'ownerName' => 'ООО "ОБУВЬОПТ"',
+                        'ownerInn' => '7731362094',
+                        'agentName' => 'ООО "Купишуз"',
+                        'agentInn' => '7705935687',
+                        'emissionDate' => '2020-01-21T13:04:54.416Z',
+                        'introducedDate' => '2020-01-31T18:11:15.139Z',
+                        'emissionType' => 'REMAINS',
+                        'lastDocId' => '6e71f305-1ee4-4f1c-92ab-4a69f5bb7bf8',
+                        'prevCises' => [],
+                        'nextCises' => [],
+                        'status' => 'INTRODUCED',
+                        'countChildren' => 0,
+                        'packType' => 'UNIT'
+                    ]
+                ),
+                (new FacadeMarkedProductsResponse(
+                    '010290000021360921&XjcbJ.KYB+pT',
+                    '02900000213609',
+                    '&XjcbJ.KYB+pT',
+                    'ООО "ОБУВЬОПТ"',
+                    '7731362094',
+                    'ООО "ОБУВЬОПТ"',
+                    '7731362094',
+                    'INTRODUCED',
+                    '2020-01-21T13:04:54.416Z',
+                    'REMAINS',
+                    [],
+                    [],
+                    'UNIT',
+                    0
+                ))
+                    ->setAgentName('ООО "Купишуз"')
+                    ->setAgentInn('7705935687')
+                    ->setLastDocId('6e71f305-1ee4-4f1c-92ab-4a69f5bb7bf8')
+                    ->setIntroducedDate('2020-01-31T18:11:15.139Z')
+            ],
             [
                 FacadeMarkedProductsResponse::class,
                 json_encode(
                     [
-                        'cis' => 'eb852349-647f-468f-bb90-d26a4d975a88',
-                        'gtin' => '04630034070029',
-                        'tnVed' => '6401100000',
-                        'productName' => 'Product name',
-                        'ownerName' => 'Owner name',
-                        'ownerInn' => '0000000000',
-                        'producerName' => 'Producer name',
-                        'producerInn' => '0000000000',
-                        'status' => 'INTRODUCED',
-                        'emissionDate' => '2019-01-18T08:14:40.344Z',
-                        'emissionType' => 'LOCAL',
-                        'statusExt' => 'WAIT_SHIPMENT',
-                        'withdrawReason' => 'RETAIL',
-                        'name' => 'Name',
-                        'brand' => 'Brand',
-                        'model' => 'Model',
-                        'certDoc' => [
-                            'type' => 'CONFORMITY_CERT',
-                            'number' => '122',
-                            'date' => '2019-01-02T20:00:00.000Z',
-                        ],
-                        'country' => 'РОССИЙСКАЯ ФЕДЕРАЦИЯ',
-                        'productTypeDesc' => 'ТАПОЧКИ',
-                        'color' => 'белый',
-                        'materialDown' => 'Текстиль',
-                        'productSize' => '52',
-                        'materialUpper' => 'Текстиль',
-                        'materialLining' => 'Текстиль',
-                        'packageType' => 'BOX',
-                        'productType' => '310000022',
+                        'cis' => "010463007034375021UptR1qHZW6\"B'",
+                        'gtin' => '04630070343750',
+                        'sgtin' => "UptR1qHZW6\"B'",
+                        'productName' => 'Жен Полуботинки кроссовые типа кеды 005 модель CF2612 размер производителя 38 EUR, российский 37 код в учетной системе CH057AWHPGH0E380',
+                        'producerName' => 'ООО "Купишуз"',
+                        'producerInn' => '7705935687',
+                        'ownerName' => 'ООО "Купишуз"',
+                        'ownerInn' => '7705935687',
+                        'emissionDate' => '2020-02-17T07:48:13.797Z',
+                        'emissionType' => 'FOREIGN',
+                        'name' => 'Жен Полуботинки кроссовые типа кеды 005 модель CF2612 размер производителя 38 EUR, российский 37 код в учетной системе CH057AWHPGH0E380',
+                        'brand' => 'Chiara Ferragni Collection',
+                        'model' => 'CF2612',
+                        'prevCises' => [],
+                        'nextCises' => [],
+                        'status' => 'APPLIED',
+                        'countChildren' => 0,
+                        'packType' => 'UNIT',
+                        'country' => 'ИТАЛИЯ',
+                        'productTypeDesc' => 'КЕДЫ',
+                        'color' => '005',
+                        'materialDown' => '100 - резина',
+                        'materialUpper' => '100 - натуральная кожа',
+                        'goodSignedFlag' => 'true',
+                        'materialLining' => '100 - натуральная кожа',
+                        'goodTurnFlag' => 'true',
+                        'goodMarkFlag' => 'true'
                     ]
                 ),
-                new FacadeMarkedProductsResponse(
-                    'eb852349-647f-468f-bb90-d26a4d975a88',
-                    '04630034070029',
-                    '6401100000',
-                    'Product name',
-                    'Owner name',
-                    '0000000000',
-                    'Producer name',
-                    '0000000000',
-                    'INTRODUCED',
-                    '2019-01-18T08:14:40.344Z',
-                    'LOCAL',
-                    'WAIT_SHIPMENT',
-                    'RETAIL',
-                    'Name',
-                    'Brand',
-                    'Model',
-                    new FacadeMarkedProductsCertDoc(
-                        'CONFORMITY_CERT',
-                        '122',
-                        '2019-01-02T20:00:00.000Z'
-                    ),
-                    'РОССИЙСКАЯ ФЕДЕРАЦИЯ',
-                    'ТАПОЧКИ',
-                    'белый',
-                    'Текстиль',
-                    '52',
-                    'Текстиль',
-                    'Текстиль',
-                    'BOX',
-                    '310000022'
-                )
+                (new FacadeMarkedProductsResponse(
+                    "010463007034375021UptR1qHZW6\"B'",
+                    '04630070343750',
+                    "UptR1qHZW6\"B'",
+                    'ООО "Купишуз"',
+                    '7705935687',
+                    'ООО "Купишуз"',
+                    '7705935687',
+                    'APPLIED',
+                    '2020-02-17T07:48:13.797Z',
+                    'FOREIGN',
+                    [],
+                    [],
+                    'UNIT',
+                    0
+                ))
+                    ->setProductName('Жен Полуботинки кроссовые типа кеды 005 модель CF2612 размер производителя 38 EUR, российский 37 код в учетной системе CH057AWHPGH0E380')
+                    ->setName('Жен Полуботинки кроссовые типа кеды 005 модель CF2612 размер производителя 38 EUR, российский 37 код в учетной системе CH057AWHPGH0E380')
+                    ->setBrand('Chiara Ferragni Collection')
+                    ->setModel('CF2612')
+                    ->setCountry('ИТАЛИЯ')
+                    ->setProductTypeDesc('КЕДЫ')
+                    ->setColor('005')
+                    ->setMaterialDown('100 - резина')
+                    ->setMaterialUpper('100 - натуральная кожа')
+                    ->setMaterialLining('100 - натуральная кожа')
+                    ->setGoodSignedFlag('true')
+                    ->setGoodTurnFlag('true')
+                    ->setGoodMarkFlag('true')
             ],
         ];
     }

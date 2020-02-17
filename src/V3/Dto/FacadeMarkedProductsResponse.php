@@ -8,30 +8,11 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 
 final class FacadeMarkedProductsResponse
 {
+    public const STATUS_EMITTED = 'EMITTED';
+    public const STATUS_APPLIED = 'APPLIED';
     public const STATUS_INTRODUCED = 'INTRODUCED';
     public const STATUS_RETIRED = 'RETIRED';
-
-    public const EMISSION_TYPE_LOCAL = 'LOCAL';
-    public const EMISSION_TYPE_FOREIGN = 'FOREIGN';
-    public const EMISSION_TYPE_REMAINS = 'REMAINS';
-    public const EMISSION_TYPE_CROSSBORDER = 'CROSSBORDER';
-
-    public const STATUS_EXT_WAIT_SHIPMENT = 'WAIT_SHIPMENT';
-    public const STATUS_EXT_WAIT_TRANSFER_TO_OWNER = 'WAIT_TRANSFER_TO_OWNER';
-    public const STATUS_EXT_WAIT_REMARK = 'WAIT_REMARK';
-
-    public const WITHDRAW_REASON_RETAIL = 'RETAIL';
-    public const WITHDRAW_REASON_EEC_EXPORT = 'EEC_EXPORT';
-    public const WITHDRAW_REASON_BEYOND_EEC_EXPORT = 'BEYOND_EEC_EXPORT';
-    public const WITHDRAW_REASON_RETURN = 'RETURN';
-    public const WITHDRAW_REASON_DAMAGE_LOSS = 'DAMAGE_LOSS';
-    public const WITHDRAW_REASON_DESTRUCTION = 'DESTRUCTION';
-    public const WITHDRAW_REASON_CONFISCATION = 'CONFISCATION';
-    public const WITHDRAW_REASON_LIQUIDATION = 'LIQUIDATION';
-    public const WITHDRAW_REASON_DONATION = 'DONATION';
-    public const WITHDRAW_REASON_STATE_ENTERPRISE = 'STATE_ENTERPRISE';
-    public const WITHDRAW_REASON_NO_RETAIL_USE = 'NO_RETAIL_USE';
-    public const WITHDRAW_REASON_ENTERPRISE_USE = 'ENTERPRISE_USE';
+    public const STATUS_ISSUED = 'ISSUED';
 
     /**
      * @var string
@@ -43,11 +24,11 @@ final class FacadeMarkedProductsResponse
     private $gtin;
     /**
      * @var string
-     * @SerializedName("tnVed")
+     * @SerializedName("sgtin")
      */
-    private $tnVed;
+    private $sgtin;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("productName")
      */
     private $productName;
@@ -72,6 +53,16 @@ final class FacadeMarkedProductsResponse
      */
     private $producerInn;
     /**
+     * @var string|null
+     * @SerializedName("agentName")
+     */
+    private $agentName;
+    /**
+     * @var string|null
+     * @SerializedName("agentInn")
+     */
+    private $agentInn;
+    /**
      * @var string
      */
     private $status;
@@ -86,81 +77,95 @@ final class FacadeMarkedProductsResponse
      */
     private $emissionType;
     /**
-     * @var string
-     * @SerializedName("statusExt")
+     * @var string|null
+     * @SerializedName("introducedDate")
      */
-    private $statusExt;
+    private $introducedDate;
     /**
-     * @var string
-     * @SerializedName("withdrawReason")
-     */
-    private $withdrawReason;
-    /**
-     * @var string
+     * @var string|null
      */
     private $name;
     /**
-     * @var string
+     * @var string|null
      */
     private $brand;
     /**
-     * @var string
+     * @var string|null
      */
     private $model;
     /**
-     * @var FacadeMarkedProductsCertDoc
-     * @SerializedName("certDoc")
+     * @var FacadeMarkedProductsCertDoc[]
+     * @SerializedName("prevCises")
      */
-    private $certDoc;
+    private $prevCises;
     /**
-     * @var string
+     * @var FacadeMarkedProductsCertDoc[]
+     * @SerializedName("nextCises")
+     */
+    private $nextCises;
+    /**
+     * @var string|null
      */
     private $country;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("productTypeDesc")
      */
     private $productTypeDesc;
     /**
-     * @var string
+     * @var string|null
      */
     private $color;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("materialDown")
      */
     private $materialDown;
     /**
-     * @var string
-     * @SerializedName("productSize")
-     */
-    private $productSize;
-    /**
-     * @var string
+     * @var string|null
      * @SerializedName("materialUpper")
      */
     private $materialUpper;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("materialLining")
      */
     private $materialLining;
     /**
      * @var string
-     * @SerializedName("packageType")
+     * @SerializedName("packType")
      */
-    private $packageType;
+    private $packType;
     /**
-     * @var string
-     * @SerializedName("productType")
+     * @var int
+     * @SerializedName("countChildren")
      */
-    private $productType;
+    private $countChildren;
+    /**
+     * @var string|null
+     * @SerializedName("goodSignedFlag")
+     */
+    private $goodSignedFlag;
+    /**
+     * @var string|null
+     * @SerializedName("goodTurnFlag")
+     */
+    private $goodTurnFlag;
+    /**
+     * @var string|null
+     * @SerializedName("goodMarkFlag")
+     */
+    private $goodMarkFlag;
+    /**
+     * @var string|null
+     * @SerializedName("lastDocId")
+     */
+    private $lastDocId;
 
     public function __construct(
         string $cis,
         string $gtin,
-        string $tnVed,
-        string $productName,
+        string $sgtin,
         string $ownerName,
         string $ownerInn,
         string $producerName,
@@ -168,27 +173,14 @@ final class FacadeMarkedProductsResponse
         string $status,
         string $emissionDate,
         string $emissionType,
-        string $statusExt,
-        string $withdrawReason,
-        string $name,
-        string $brand,
-        string $model,
-        FacadeMarkedProductsCertDoc $certDoc,
-        string $country,
-        string $productTypeDesc,
-        string $color,
-        string $materialDown,
-        string $productSize,
-        string $materialUpper,
-        string $materialLining,
-        string $packageType,
-        string $productType
-    )
-    {
+        array $prevCises,
+        array $nextCises,
+        string $packType,
+        int $countChildren
+    ) {
         $this->cis = $cis;
         $this->gtin = $gtin;
-        $this->tnVed = $tnVed;
-        $this->productName = $productName;
+        $this->sgtin = $sgtin;
         $this->ownerName = $ownerName;
         $this->ownerInn = $ownerInn;
         $this->producerName = $producerName;
@@ -196,21 +188,10 @@ final class FacadeMarkedProductsResponse
         $this->status = $status;
         $this->emissionDate = $emissionDate;
         $this->emissionType = $emissionType;
-        $this->statusExt = $statusExt;
-        $this->withdrawReason = $withdrawReason;
-        $this->name = $name;
-        $this->brand = $brand;
-        $this->model = $model;
-        $this->certDoc = $certDoc;
-        $this->country = $country;
-        $this->productTypeDesc = $productTypeDesc;
-        $this->color = $color;
-        $this->materialDown = $materialDown;
-        $this->productSize = $productSize;
-        $this->materialUpper = $materialUpper;
-        $this->materialLining = $materialLining;
-        $this->packageType = $packageType;
-        $this->productType = $productType;
+        $this->prevCises = $prevCises;
+        $this->nextCises = $nextCises;
+        $this->packType = $packType;
+        $this->countChildren = $countChildren;
     }
 
     public function getCis(): string
@@ -223,12 +204,12 @@ final class FacadeMarkedProductsResponse
         return $this->gtin;
     }
 
-    public function getTnVed(): string
+    public function getSgtin(): string
     {
-        return $this->tnVed;
+        return $this->sgtin;
     }
 
-    public function getProductName(): string
+    public function getProductName(): ?string
     {
         return $this->productName;
     }
@@ -253,6 +234,16 @@ final class FacadeMarkedProductsResponse
         return $this->producerInn;
     }
 
+    public function getAgentName(): ?string
+    {
+        return $this->agentName;
+    }
+
+    public function getAgentInn(): ?string
+    {
+        return $this->agentInn;
+    }
+
     public function getStatus(): string
     {
         return $this->status;
@@ -268,78 +259,201 @@ final class FacadeMarkedProductsResponse
         return $this->emissionType;
     }
 
-    public function getStatusExt(): string
+    public function getIntroducedDate(): ?string
     {
-        return $this->statusExt;
+        return $this->introducedDate;
     }
 
-    public function getWithdrawReason(): string
-    {
-        return $this->withdrawReason;
-    }
-
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function getBrand(): string
+    public function getBrand(): ?string
     {
         return $this->brand;
     }
 
-    public function getModel(): string
+    public function getModel(): ?string
     {
         return $this->model;
     }
 
-    public function getCertDoc(): FacadeMarkedProductsCertDoc
+    /**
+     * @return FacadeMarkedProductsCertDoc[]
+     */
+    public function getPrevCises(): array
     {
-        return $this->certDoc;
+        return $this->prevCises;
     }
 
-    public function getCountry(): string
+    /**
+     * @return FacadeMarkedProductsCertDoc[]
+     */
+    public function getNextCises(): array
+    {
+        return $this->nextCises;
+    }
+
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
-    public function getProductTypeDesc(): string
+    public function getProductTypeDesc(): ?string
     {
         return $this->productTypeDesc;
     }
 
-    public function getColor(): string
+    public function getColor(): ?string
     {
         return $this->color;
     }
 
-    public function getMaterialDown(): string
+    public function getMaterialDown(): ?string
     {
         return $this->materialDown;
     }
 
-    public function getProductSize(): string
-    {
-        return $this->productSize;
-    }
-
-    public function getMaterialUpper(): string
+    public function getMaterialUpper(): ?string
     {
         return $this->materialUpper;
     }
 
-    public function getMaterialLining(): string
+    public function getMaterialLining(): ?string
     {
         return $this->materialLining;
     }
 
-    public function getPackageType(): string
+    public function getPackType(): string
     {
-        return $this->packageType;
+        return $this->packType;
     }
 
-    public function getProductType(): string
+    public function getCountChildren(): int
     {
-        return $this->productType;
+        return $this->countChildren;
+    }
+
+    public function getGoodSignedFlag(): ?string
+    {
+        return $this->goodSignedFlag;
+    }
+
+    public function getGoodTurnFlag(): ?string
+    {
+        return $this->goodTurnFlag;
+    }
+
+    public function getGoodMarkFlag(): ?string
+    {
+        return $this->goodMarkFlag;
+    }
+
+    public function getLastDocId(): ?string
+    {
+        return $this->lastDocId;
+    }
+
+    public function setProductName(?string $productName): FacadeMarkedProductsResponse
+    {
+        $this->productName = $productName;
+        return $this;
+    }
+
+    public function setAgentName(?string $agentName): FacadeMarkedProductsResponse
+    {
+        $this->agentName = $agentName;
+        return $this;
+    }
+
+    public function setAgentInn(?string $agentInn): FacadeMarkedProductsResponse
+    {
+        $this->agentInn = $agentInn;
+        return $this;
+    }
+
+    public function setIntroducedDate(?string $introducedDate): FacadeMarkedProductsResponse
+    {
+        $this->introducedDate = $introducedDate;
+        return $this;
+    }
+
+    public function setName(?string $name): FacadeMarkedProductsResponse
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function setBrand(?string $brand): FacadeMarkedProductsResponse
+    {
+        $this->brand = $brand;
+        return $this;
+    }
+
+    public function setModel(?string $model): FacadeMarkedProductsResponse
+    {
+        $this->model = $model;
+        return $this;
+    }
+
+    public function setCountry(?string $country): FacadeMarkedProductsResponse
+    {
+        $this->country = $country;
+        return $this;
+    }
+
+    public function setProductTypeDesc(?string $productTypeDesc): FacadeMarkedProductsResponse
+    {
+        $this->productTypeDesc = $productTypeDesc;
+        return $this;
+    }
+
+    public function setColor(?string $color): FacadeMarkedProductsResponse
+    {
+        $this->color = $color;
+        return $this;
+    }
+
+    public function setMaterialDown(?string $materialDown): FacadeMarkedProductsResponse
+    {
+        $this->materialDown = $materialDown;
+        return $this;
+    }
+
+    public function setMaterialUpper(?string $materialUpper): FacadeMarkedProductsResponse
+    {
+        $this->materialUpper = $materialUpper;
+        return $this;
+    }
+
+    public function setMaterialLining(?string $materialLining): FacadeMarkedProductsResponse
+    {
+        $this->materialLining = $materialLining;
+        return $this;
+    }
+
+    public function setGoodSignedFlag(?string $goodSignedFlag): FacadeMarkedProductsResponse
+    {
+        $this->goodSignedFlag = $goodSignedFlag;
+        return $this;
+    }
+
+    public function setGoodTurnFlag(?string $goodTurnFlag): FacadeMarkedProductsResponse
+    {
+        $this->goodTurnFlag = $goodTurnFlag;
+        return $this;
+    }
+
+    public function setGoodMarkFlag(?string $goodMarkFlag): FacadeMarkedProductsResponse
+    {
+        $this->goodMarkFlag = $goodMarkFlag;
+        return $this;
+    }
+
+    public function setLastDocId(?string $lastDocId): FacadeMarkedProductsResponse
+    {
+        $this->lastDocId = $lastDocId;
+        return $this;
     }
 }
