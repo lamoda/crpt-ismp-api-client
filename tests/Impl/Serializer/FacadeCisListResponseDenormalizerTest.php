@@ -49,8 +49,8 @@ final class FacadeCisListResponseDenormalizerTest extends TestCase
             ],
             [
                 \stdClass::class,
-                false
-            ]
+                false,
+            ],
         ];
     }
 
@@ -80,8 +80,8 @@ final class FacadeCisListResponseDenormalizerTest extends TestCase
     {
         $this->denormalizer->setDenormalizer($this->inner);
 
-        $item1 = new FacadeCisItemResponse('', '', '', '', 0, '', '', '', '', '', 0);
-        $item2 = new FacadeCisItemResponse('', '', '', '', 0, '', '', '', '', '', 0);
+        $item1 = new FacadeCisItemResponse('', '', '', '', 0, '', '', '', 0);
+        $item2 = new FacadeCisItemResponse('', '', '', '', 0, '', '', '', 0);
 
         $expectedResult = new FacadeCisListResponse($item1, $item2);
 
@@ -98,7 +98,7 @@ final class FacadeCisListResponseDenormalizerTest extends TestCase
 
         $result = $this->denormalizer->denormalize([
             'first',
-            'second'
+            'second',
         ], FacadeCisListResponse::class);
 
         $this->assertEquals($expectedResult, $result);

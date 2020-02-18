@@ -52,12 +52,12 @@ final class FacadeCisItemResponse
      */
     private $ownerInn;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("productName")
      */
     private $productName;
     /**
-     * @var string
+     * @var string|null
      */
     private $brand;
     /**
@@ -75,8 +75,6 @@ final class FacadeCisItemResponse
         string $packageType,
         string $ownerName,
         string $ownerInn,
-        string $productName,
-        string $brand,
         int $countChildren
     ) {
         $this->cis = $cis;
@@ -87,8 +85,6 @@ final class FacadeCisItemResponse
         $this->packageType = $packageType;
         $this->ownerName = $ownerName;
         $this->ownerInn = $ownerInn;
-        $this->productName = $productName;
-        $this->brand = $brand;
         $this->countChildren = $countChildren;
     }
 
@@ -157,26 +153,36 @@ final class FacadeCisItemResponse
     }
 
     /**
-     * @return string
-     */
-    public function getProductName(): string
-    {
-        return $this->productName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBrand(): string
-    {
-        return $this->brand;
-    }
-
-    /**
      * @return int
      */
     public function getCountChildren(): int
     {
         return $this->countChildren;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getProductName(): ?string
+    {
+        return $this->productName;
+    }
+
+    public function setProductName(string $productName): void
+    {
+        $this->productName = $productName;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBrand(): ?string
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(string $brand): void
+    {
+        $this->brand = $brand;
     }
 }
