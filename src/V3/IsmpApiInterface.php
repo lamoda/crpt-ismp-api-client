@@ -30,7 +30,7 @@ interface IsmpApiInterface
 
     public function facadeDocListV2(string $token, FacadeDocListV2Query $query): FacadeDocListV2Response;
 
-    public function facadeDocBody(string $token, string $docId): FacadeDocBodyResponse;
+    public function facadeDocBody(string $token, string $docId, int $limit = null): FacadeDocBodyResponse;
 
     public function lkDocumentsCreate(string $token, DocumentCreateRequest $request): string;
 

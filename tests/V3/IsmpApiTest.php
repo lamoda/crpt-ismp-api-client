@@ -286,7 +286,10 @@ final class IsmpApiTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
-    public function testFacadeDocBody(): void
+    /**
+     * @dataProvider dataFacadeDocBody
+     */
+    public function testFacadeDocBody(?int $limitOption, array $expectedOptions): void
     {
         $expectedResult = new FacadeDocBodyResponse(self::IDENTITY, '2019-01-01', 'IMPORT', 'NEW', 'Tester', 'Test');
 
@@ -303,24 +306,47 @@ final class IsmpApiTest extends TestCase
             ->with(
                 'GET',
                 sprintf('api/v3/facade/doc/%s/body', self::IDENTITY),
-                [
-                    RequestOptions::BODY => null,
-                    RequestOptions::HEADERS => [
-                        'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . self::TOKEN
-                    ],
-                    RequestOptions::HTTP_ERRORS => true,
-                    RequestOptions::QUERY => null,
-                ]
+                $expectedOptions
             )
             ->willReturn(
                 (new Response())
                     ->withBody(stream_for(self::API_RESPONSE))
             );
 
-        $result = $this->api->facadeDocBody(self::TOKEN, self::IDENTITY);
+        $result = $this->api->facadeDocBody(self::TOKEN, self::IDENTITY, $limitOption);
 
         $this->assertEquals($expectedResult, $result);
+    }
+
+    public function dataFacadeDocBody(): iterable
+    {
+        yield 'null as a limit' => [
+            null,
+            [
+                RequestOptions::BODY => null,
+                RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . self::TOKEN
+                ],
+                RequestOptions::HTTP_ERRORS => true,
+                RequestOptions::QUERY => null,
+            ]
+        ];
+
+        yield 'number as a limit' => [
+            1000,
+            [
+                RequestOptions::BODY => null,
+                RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . self::TOKEN
+                ],
+                RequestOptions::HTTP_ERRORS => true,
+                RequestOptions::QUERY => [
+                    'limit' => 1000
+                ],
+            ]
+        ];
     }
 
     public function testFacadeCisList(): void

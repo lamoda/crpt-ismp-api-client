@@ -8,20 +8,20 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\RequestOptions;
 use Lamoda\IsmpClient\Exception\IsmpGeneralErrorException;
+use Lamoda\IsmpClient\Exception\IsmpRequestErrorException;
+use Lamoda\IsmpClient\Serializer\SerializerInterface;
 use Lamoda\IsmpClient\V3\Dto\AuthCertKeyResponse;
 use Lamoda\IsmpClient\V3\Dto\AuthCertRequest;
 use Lamoda\IsmpClient\V3\Dto\AuthCertResponse;
-use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse;
+use Lamoda\IsmpClient\V3\Dto\DocumentCreateRequest;
 use Lamoda\IsmpClient\V3\Dto\FacadeCisListResponse;
+use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2Query;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2Response;
 use Lamoda\IsmpClient\V3\Dto\FacadeMarkedProductsResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderDetailsResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderRequest;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderResponse;
-use Lamoda\IsmpClient\V3\Dto\DocumentCreateRequest;
-use Lamoda\IsmpClient\Exception\IsmpRequestErrorException;
-use Lamoda\IsmpClient\Serializer\SerializerInterface;
 use Lamoda\IsmpClient\V3\Dto\ProductInfoResponse;
 
 final class IsmpApi implements IsmpApiInterface
@@ -83,9 +83,14 @@ final class IsmpApi implements IsmpApiInterface
         return $this->serializer->deserialize(FacadeDocListV2Response::class, $result);
     }
 
-    public function facadeDocBody(string $token, string $docId): FacadeDocBodyResponse
+    public function facadeDocBody(string $token, string $docId, int $limit = null): FacadeDocBodyResponse
     {
-        $result = $this->request('GET', sprintf('/api/v3/facade/doc/%s/body', $docId), null, null, $token);
+        $query = null;
+        if ($limit !== null) {
+            $query = ['limit' => $limit];
+        }
+
+        $result = $this->request('GET', sprintf('/api/v3/facade/doc/%s/body', $docId), null, $query, $token);
 
         /* @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->serializer->deserialize(FacadeDocBodyResponse::class, $result);
@@ -187,14 +192,14 @@ final class IsmpApi implements IsmpApiInterface
             throw $this->handleRequestException($exception);
         }
 
-        return (string) $result->getBody();
+        return (string)$result->getBody();
     }
 
     private function handleRequestException(\Throwable $exception): \Throwable
     {
         if ($exception instanceof BadResponseException) {
             $response = $exception->getResponse();
-            $responseBody = $response ? (string) $response->getBody() : '';
+            $responseBody = $response ? (string)$response->getBody() : '';
             $responseCode = $response ? $response->getStatusCode() : 0;
 
             return IsmpRequestErrorException::becauseOfErrorResponse($responseCode, $responseBody, $exception);
