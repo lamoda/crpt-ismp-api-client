@@ -23,7 +23,7 @@ final class FacadeCisItemResponse
      */
     private $gtin;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("producerName")
      */
     private $producerName;
@@ -42,12 +42,12 @@ final class FacadeCisItemResponse
      */
     private $packageType;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("ownerName")
      */
     private $ownerName;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("ownerInn")
      */
     private $ownerInn;
@@ -69,22 +69,16 @@ final class FacadeCisItemResponse
     public function __construct(
         string $cis,
         string $gtin,
-        string $producerName,
         string $status,
         int $emissionDate,
         string $packageType,
-        string $ownerName,
-        string $ownerInn,
         int $countChildren
     ) {
         $this->cis = $cis;
         $this->gtin = $gtin;
-        $this->producerName = $producerName;
         $this->status = $status;
         $this->emissionDate = $emissionDate;
         $this->packageType = $packageType;
-        $this->ownerName = $ownerName;
-        $this->ownerInn = $ownerInn;
         $this->countChildren = $countChildren;
     }
 
@@ -105,11 +99,16 @@ final class FacadeCisItemResponse
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getProducerName(): string
+    public function getProducerName(): ?string
     {
         return $this->producerName;
+    }
+
+    public function setProducerName(string $producerName): void
+    {
+        $this->producerName = $producerName;
     }
 
     /**
@@ -137,19 +136,29 @@ final class FacadeCisItemResponse
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getOwnerName(): string
+    public function getOwnerName(): ?string
     {
         return $this->ownerName;
     }
 
+    public function setOwnerName(string $ownerName): void
+    {
+        $this->ownerName = $ownerName;
+    }
+
     /**
-     * @return string
+     * @return string|null
      */
-    public function getOwnerInn(): string
+    public function getOwnerInn(): ?string
     {
         return $this->ownerInn;
+    }
+
+    public function setOwnerInn(string $ownerInn): void
+    {
+        $this->ownerInn = $ownerInn;
     }
 
     /**
