@@ -46,5 +46,5 @@ interface IsmpApiInterface
 
     public function facadeCisList(string $token, string $cis): FacadeCisListResponse;
 
-    public function facadeMarkedProducts(string $token, string $uit): FacadeMarkedProductsResponse;
+    public function facadeMarkedProducts(string $token, string $cis): FacadeMarkedProductsResponse;
 }
