@@ -104,9 +104,9 @@ final class IsmpApi implements IsmpApiInterface
         return $this->serializer->deserialize(FacadeCisListResponse::class, $response);
     }
 
-    public function facadeMarkedProducts(string $token, string $uit): FacadeMarkedProductsResponse
+    public function facadeMarkedProducts(string $token, string $cis): FacadeMarkedProductsResponse
     {
-        $response = $this->request('GET', '/api/v3/facade/marked_products/info', null, ['uit' => $uit], $token);
+        $response = $this->request('GET', '/api/v3/facade/marked_products/info', null, ['cis' => $cis], $token);
 
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->serializer->deserialize(FacadeMarkedProductsResponse::class, $response);
