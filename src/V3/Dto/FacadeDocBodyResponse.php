@@ -44,7 +44,7 @@ final class FacadeDocBodyResponse
      */
     private $senderName;
     /**
-     * @var string
+     * @var string|null
      */
     private $content;
     /**
@@ -62,7 +62,7 @@ final class FacadeDocBodyResponse
         string $type,
         string $status,
         string $senderName,
-        string $content,
+        ?string $content = null,
         ?Body $body = null
     ) {
         $this->number = $number;
@@ -99,7 +99,7 @@ final class FacadeDocBodyResponse
         return $this->senderName;
     }
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
