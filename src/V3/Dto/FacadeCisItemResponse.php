@@ -65,6 +65,16 @@ final class FacadeCisItemResponse
      * @SerializedName("countChildren")
      */
     private $countChildren;
+    /**
+     * @var string|null
+     * @SerializedName("agentInn")
+     */
+    private $agentInn;
+    /**
+     * @var string|null
+     * @SerializedName("agentName")
+     */
+    private $agentName;
 
     public function __construct(
         string $cis,
@@ -82,25 +92,16 @@ final class FacadeCisItemResponse
         $this->countChildren = $countChildren;
     }
 
-    /**
-     * @return string
-     */
     public function getCis(): string
     {
         return $this->cis;
     }
 
-    /**
-     * @return string
-     */
     public function getGtin(): string
     {
         return $this->gtin;
     }
 
-    /**
-     * @return string|null
-     */
     public function getProducerName(): ?string
     {
         return $this->producerName;
@@ -111,33 +112,21 @@ final class FacadeCisItemResponse
         $this->producerName = $producerName;
     }
 
-    /**
-     * @return string
-     */
     public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @return int
-     */
     public function getEmissionDate(): int
     {
         return $this->emissionDate;
     }
 
-    /**
-     * @return string
-     */
     public function getPackageType(): string
     {
         return $this->packageType;
     }
 
-    /**
-     * @return string|null
-     */
     public function getOwnerName(): ?string
     {
         return $this->ownerName;
@@ -148,9 +137,6 @@ final class FacadeCisItemResponse
         $this->ownerName = $ownerName;
     }
 
-    /**
-     * @return string|null
-     */
     public function getOwnerInn(): ?string
     {
         return $this->ownerInn;
@@ -161,17 +147,11 @@ final class FacadeCisItemResponse
         $this->ownerInn = $ownerInn;
     }
 
-    /**
-     * @return int
-     */
     public function getCountChildren(): int
     {
         return $this->countChildren;
     }
 
-    /**
-     * @return string|null
-     */
     public function getProductName(): ?string
     {
         return $this->productName;
@@ -182,9 +162,6 @@ final class FacadeCisItemResponse
         $this->productName = $productName;
     }
 
-    /**
-     * @return string|null
-     */
     public function getBrand(): ?string
     {
         return $this->brand;
@@ -193,5 +170,25 @@ final class FacadeCisItemResponse
     public function setBrand(string $brand): void
     {
         $this->brand = $brand;
+    }
+
+    public function getAgentInn(): ?string
+    {
+        return $this->agentInn;
+    }
+
+    public function setAgentInn(?string $agentInn): void
+    {
+        $this->agentInn = $agentInn;
+    }
+
+    public function getAgentName(): ?string
+    {
+        return $this->agentName;
+    }
+
+    public function setAgentName(?string $agentName): void
+    {
+        $this->agentName = $agentName;
     }
 }
