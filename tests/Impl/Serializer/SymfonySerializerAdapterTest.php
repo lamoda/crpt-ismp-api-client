@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Lamoda\IsmpClient\Tests\Impl\Serializer;
 
+use Lamoda\IsmpClient\Exception\IsmpSerializerErrorException;
 use Lamoda\IsmpClient\Impl\Serializer\SymfonySerializerAdapterFactory;
 use Lamoda\IsmpClient\Serializer\SerializerInterface;
 use Lamoda\IsmpClient\V3\Dto\AuthCertRequest;
@@ -150,7 +151,7 @@ final class SymfonySerializerAdapterTest extends TestCase
                     'Текстиль',
                     'BOX',
                     '310000022'
-                )
+                ),
             ],
         ];
     }
@@ -182,5 +183,24 @@ JSON
                 ,
             ],
         ];
+    }
+
+    public function testDeserializeError(): void
+    {
+        $this->expectException(IsmpSerializerErrorException::class);
+
+        $this->serializer->deserialize('NOT_A_CLASS', null);
+    }
+
+    public function testSerializeError(): void
+    {
+        $this->expectException(IsmpSerializerErrorException::class);
+
+        $this->serializer->serialize(new class {
+            public function getProperty(): string
+            {
+                throw new \Exception();
+            }
+        });
     }
 }
