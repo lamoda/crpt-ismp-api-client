@@ -33,12 +33,12 @@ final class FacadeMarkedProductsResponse
      */
     private $productName;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("ownerName")
      */
     private $ownerName;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("ownerInn")
      */
     private $ownerInn;
@@ -166,8 +166,6 @@ final class FacadeMarkedProductsResponse
         string $cis,
         string $gtin,
         string $sgtin,
-        string $ownerName,
-        string $ownerInn,
         string $producerName,
         string $producerInn,
         string $status,
@@ -181,8 +179,6 @@ final class FacadeMarkedProductsResponse
         $this->cis = $cis;
         $this->gtin = $gtin;
         $this->sgtin = $sgtin;
-        $this->ownerName = $ownerName;
-        $this->ownerInn = $ownerInn;
         $this->producerName = $producerName;
         $this->producerInn = $producerInn;
         $this->status = $status;
@@ -358,6 +354,20 @@ final class FacadeMarkedProductsResponse
     public function setProductName(?string $productName): FacadeMarkedProductsResponse
     {
         $this->productName = $productName;
+        return $this;
+    }
+
+    public function setOwnerName(?string $ownerName): self
+    {
+        $this->ownerName = $ownerName;
+
+        return $this;
+    }
+
+    public function setOwnerInn(?string $ownerInn): self
+    {
+        $this->ownerInn = $ownerInn;
+
         return $this;
     }
 
