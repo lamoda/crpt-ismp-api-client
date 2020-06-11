@@ -113,8 +113,6 @@ final class SymfonySerializerAdapterTest extends TestCase
                     '&XjcbJ.KYB+pT',
                     'ООО "ОБУВЬОПТ"',
                     '7731362094',
-                    'ООО "ОБУВЬОПТ"',
-                    '7731362094',
                     'INTRODUCED',
                     '2020-01-21T13:04:54.416Z',
                     'REMAINS',
@@ -123,6 +121,8 @@ final class SymfonySerializerAdapterTest extends TestCase
                     'UNIT',
                     0
                 ))
+                    ->setOwnerInn('7731362094')
+                    ->setOwnerName('ООО "ОБУВЬОПТ"')
                     ->setAgentName('ООО "Купишуз"')
                     ->setAgentInn('7705935687')
                     ->setLastDocId('6e71f305-1ee4-4f1c-92ab-4a69f5bb7bf8')
@@ -167,8 +167,6 @@ final class SymfonySerializerAdapterTest extends TestCase
                     "UptR1qHZW6\"B'",
                     'ООО "Купишуз"',
                     '7705935687',
-                    'ООО "Купишуз"',
-                    '7705935687',
                     'APPLIED',
                     '2020-02-17T07:48:13.797Z',
                     'FOREIGN',
@@ -177,6 +175,8 @@ final class SymfonySerializerAdapterTest extends TestCase
                     'UNIT',
                     0
                 ))
+                    ->setOwnerInn('7705935687')
+                    ->setOwnerName('ООО "Купишуз"')
                     ->setProductName('Жен Полуботинки кроссовые типа кеды 005 модель CF2612 размер производителя 38 EUR, российский 37 код в учетной системе CH057AWHPGH0E380')
                     ->setName('Жен Полуботинки кроссовые типа кеды 005 модель CF2612 размер производителя 38 EUR, российский 37 код в учетной системе CH057AWHPGH0E380')
                     ->setBrand('Chiara Ferragni Collection')
