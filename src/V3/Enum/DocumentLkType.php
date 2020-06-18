@@ -60,4 +60,7 @@ final class DocumentLkType
     public const LP_SHIP_GOODS_CROSSBORDER_CSV = 'LP_SHIP_GOODS_CROSSBORDER_CSV'; // Отгрузка при трансграничной торговли. csv
     public const LP_SHIP_GOODS_CROSSBORDER_XML = 'LP_SHIP_GOODS_CROSSBORDER_XML'; // Отгрузка при трансграничной торговли. xml
     public const LP_CANCEL_SHIPMENT_CROSSBORDER = 'LP_CANCEL_SHIPMENT_CROSSBORDER'; // Отмена отгрузки при трансграничной торговли. Производство РФ. json
+    public const LK_FTS_INTRODUCE = 'LK_FTS_INTRODUCE'; // Ввод в оборот. Импорт с ФТС. JSON (MANUAL)
+    public const LK_FTS_INTRODUCE_CSV = 'LK_FTS_INTRODUCE_CSV'; // Ввод в оборот. Импорт с ФТС. CSV
+    public const LK_FTS_INTRODUCE_XML = 'LK_FTS_INTRODUCE_XML'; // Ввод в оборот. Импорт с ФТС. XML
 }
