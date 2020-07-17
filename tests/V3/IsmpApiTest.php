@@ -364,18 +364,18 @@ final class IsmpApiTest extends TestCase
         $this->client->expects($this->once())
             ->method('request')
             ->with(
-                'GET',
+                'POST',
                 'api/v3/facade/cis/cis_list',
                 [
-                    RequestOptions::BODY => null,
+                    RequestOptions::BODY => [
+                        'cises' => [self::IDENTITY]
+                    ],
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
                         'Authorization' => 'Bearer ' . self::TOKEN
                     ],
                     RequestOptions::HTTP_ERRORS => true,
-                    RequestOptions::QUERY => [
-                        'cis' => self::IDENTITY
-                    ],
+                    RequestOptions::QUERY => null
                 ]
             )
             ->willReturn(
