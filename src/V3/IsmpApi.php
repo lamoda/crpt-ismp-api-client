@@ -98,7 +98,7 @@ final class IsmpApi implements IsmpApiInterface
 
     public function facadeCisList(string $token, string $cis): FacadeCisListResponse
     {
-        $response = $this->request('GET', '/api/v3/facade/cis/cis_list', null, ['cis' => $cis], $token);
+        $response = $this->request('POST', '/api/v3/facade/cis/cis_list', ['cises' => [$cis]], null, $token);
 
         /* @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->serializer->deserialize(FacadeCisListResponse::class, $response);
