@@ -15,6 +15,7 @@ use Lamoda\IsmpClient\V3\Dto\AuthCertKeyResponse;
 use Lamoda\IsmpClient\V3\Dto\AuthCertRequest;
 use Lamoda\IsmpClient\V3\Dto\AuthCertResponse;
 use Lamoda\IsmpClient\V3\Dto\DocumentCreateRequest;
+use Lamoda\IsmpClient\V3\Dto\FacadeCisListRequest;
 use Lamoda\IsmpClient\V3\Dto\FacadeCisListResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2Query;
@@ -351,7 +352,14 @@ final class IsmpApiTest extends TestCase
 
     public function testFacadeCisList(): void
     {
+        $request = new FacadeCisListRequest(self::IDENTITY);
         $expectedResult = new FacadeCisListResponse();
+        $requestBody = '{"cises": [' . self::IDENTITY . ']}';
+
+        $this->serializer
+            ->method('serialize')
+            ->with($request)
+            ->willReturn($requestBody);
 
         $this->serializer
             ->method('deserialize')
@@ -367,9 +375,7 @@ final class IsmpApiTest extends TestCase
                 'POST',
                 'api/v3/facade/cis/cis_list',
                 [
-                    RequestOptions::BODY => [
-                        'cises' => [self::IDENTITY]
-                    ],
+                    RequestOptions::BODY => $requestBody,
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
                         'Authorization' => 'Bearer ' . self::TOKEN
@@ -383,7 +389,7 @@ final class IsmpApiTest extends TestCase
                     ->withBody(stream_for(self::API_RESPONSE))
             );
 
-        $result = $this->api->facadeCisList(self::TOKEN, self::IDENTITY);
+        $result = $this->api->facadeCisList(self::TOKEN, $request);
 
         $this->assertEquals($expectedResult, $result);
     }

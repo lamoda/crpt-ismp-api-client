@@ -14,6 +14,7 @@ use Lamoda\IsmpClient\V3\Dto\AuthCertKeyResponse;
 use Lamoda\IsmpClient\V3\Dto\AuthCertRequest;
 use Lamoda\IsmpClient\V3\Dto\AuthCertResponse;
 use Lamoda\IsmpClient\V3\Dto\DocumentCreateRequest;
+use Lamoda\IsmpClient\V3\Dto\FacadeCisListRequest;
 use Lamoda\IsmpClient\V3\Dto\FacadeCisListResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2Query;
@@ -96,9 +97,10 @@ final class IsmpApi implements IsmpApiInterface
         return $this->serializer->deserialize(FacadeDocBodyResponse::class, $result);
     }
 
-    public function facadeCisList(string $token, string $cis): FacadeCisListResponse
+    public function facadeCisList(string $token, FacadeCisListRequest $request): FacadeCisListResponse
     {
-        $response = $this->request('POST', '/api/v3/facade/cis/cis_list', ['cises' => [$cis]], null, $token);
+        $body = $this->serializer->serialize($request);
+        $response = $this->request('POST', '/api/v3/facade/cis/cis_list', $body, null, $token);
 
         /* @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->serializer->deserialize(FacadeCisListResponse::class, $response);

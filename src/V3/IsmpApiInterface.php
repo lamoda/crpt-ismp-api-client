@@ -8,6 +8,7 @@ use Lamoda\IsmpClient\V3\Dto\AuthCertKeyResponse;
 use Lamoda\IsmpClient\V3\Dto\AuthCertRequest;
 use Lamoda\IsmpClient\V3\Dto\AuthCertResponse;
 use Lamoda\IsmpClient\V3\Dto\DocumentCreateRequest;
+use Lamoda\IsmpClient\V3\Dto\FacadeCisListRequest;
 use Lamoda\IsmpClient\V3\Dto\FacadeCisListResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2Query;
@@ -44,7 +45,7 @@ interface IsmpApiInterface
 
     public function productInfo(string $token, array $gtins): ProductInfoResponse;
 
-    public function facadeCisList(string $token, string $cis): FacadeCisListResponse;
+    public function facadeCisList(string $token, FacadeCisListRequest $request): FacadeCisListResponse;
 
     public function facadeMarkedProducts(string $token, string $cis): FacadeMarkedProductsResponse;
 }
