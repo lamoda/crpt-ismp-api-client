@@ -16,14 +16,14 @@ final class FacadeDocListV2ItemResponseTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->model = new FacadeDocListV2ItemResponse(
+        $this->model = (new FacadeDocListV2ItemResponse(
             'document_number_1',
             '2019-12-02T13:54:41.566Z',
-            '2019-12-03T13:54:41.566Z',
-            'LP_SHIP_GOODS',
-            'WAIT_ACCEPTANCE',
-            'ООО "ТАПИБУ"'
-        );
+            '2019-12-03T13:54:41.566Z'
+        ))
+            ->setType('LP_SHIP_GOODS')
+            ->setStatus('WAIT_ACCEPTANCE')
+            ->setSenderName('ООО "ТАПИБУ"');
     }
 
     public function testGetReceivedAtDateTime(): void

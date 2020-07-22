@@ -72,14 +72,13 @@ final class SymfonySerializerAdapterTest extends TestCase
                 new FacadeDocListV2Response(
                     25,
                     [
-                        new FacadeDocListV2ItemResponse(
+                        (new FacadeDocListV2ItemResponse(
                             'b917dfb0-523d-41e0-9e64-e8bf0052c5bd',
                             '2019-01-18T06:45:35.630Z',
-                            '2019-01-19T06:45:35.630Z',
-                            'LP_INTRODUCE_GOODS',
-                            'CHECKED_OK',
-                            'test'
-                        ),
+                            '2019-01-19T06:45:35.630Z'
+                        ))->setType('LP_INTRODUCE_GOODS')
+                        ->setStatus('CHECKED_OK')
+                        ->setSenderName('test')
                     ]
                 ),
             ],
