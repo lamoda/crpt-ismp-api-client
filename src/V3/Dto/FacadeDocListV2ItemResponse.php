@@ -23,15 +23,15 @@ final class FacadeDocListV2ItemResponse
      */
     private $receivedAt;
     /**
-     * @var string
+     * @var string|null
      */
     private $type;
     /**
-     * @var string
+     * @var string|null
      */
     private $status;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("senderName")
      */
     private $senderName;
@@ -39,17 +39,11 @@ final class FacadeDocListV2ItemResponse
     public function __construct(
         string $number,
         string $docDate,
-        string $receivedAt,
-        string $type,
-        string $status,
-        string $senderName
+        string $receivedAt
     ) {
         $this->number = $number;
         $this->docDate = $docDate;
         $this->receivedAt = $receivedAt;
-        $this->type = $type;
-        $this->status = $status;
-        $this->senderName = $senderName;
     }
 
     public function getNumber(): string
@@ -62,22 +56,59 @@ final class FacadeDocListV2ItemResponse
         return $this->docDate;
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function getDocDateDateTime(): \DateTimeImmutable
+    {
+        return new \DateTimeImmutable($this->docDate);
+    }
+
     public function getReceivedAt(): string
     {
         return $this->receivedAt;
     }
 
-    public function getType(): string
+    /**
+     * @throws \Exception
+     */
+    public function getReceivedAtDateTime(): \DateTimeImmutable
+    {
+        return new \DateTimeImmutable($this->receivedAt);
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function setSenderName(?string $senderName): self
+    {
+        $this->senderName = $senderName;
+
+        return $this;
+    }
+
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function getStatus(): string
+    public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function getSenderName(): string
+    public function getSenderName(): ?string
     {
         return $this->senderName;
     }

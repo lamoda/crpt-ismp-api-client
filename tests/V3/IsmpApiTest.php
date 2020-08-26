@@ -15,6 +15,7 @@ use Lamoda\IsmpClient\V3\Dto\AuthCertKeyResponse;
 use Lamoda\IsmpClient\V3\Dto\AuthCertRequest;
 use Lamoda\IsmpClient\V3\Dto\AuthCertResponse;
 use Lamoda\IsmpClient\V3\Dto\DocumentCreateRequest;
+use Lamoda\IsmpClient\V3\Dto\FacadeCisListRequest;
 use Lamoda\IsmpClient\V3\Dto\FacadeCisListResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocListV2Query;
@@ -23,6 +24,8 @@ use Lamoda\IsmpClient\V3\Dto\FacadeOrderDetailsResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderRequest;
 use Lamoda\IsmpClient\V3\Dto\FacadeOrderResponse;
 use Lamoda\IsmpClient\V3\Dto\ProductInfoResponse;
+use Lamoda\IsmpClient\V3\Enum\DocumentLkType;
+use Lamoda\IsmpClient\V3\Enum\ProductGroup;
 use Lamoda\IsmpClient\V3\IsmpApi;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -36,7 +39,7 @@ final class IsmpApiTest extends TestCase
     private const RANDOM_DATA = '2b212c99-9955-45c7-8594-9d3aa59eae04';
     private const SERIALIZED_VALUE = '{"test:"value"}';
     private const API_RESPONSE = 'stub_api_response';
-    const IDENTITY = 'eb852349-647f-468f-bb90-d26a4d975a88';
+    private const IDENTITY = 'eb852349-647f-468f-bb90-d26a4d975a88';
 
     /**
      * @var ClientInterface|MockObject
@@ -244,7 +247,7 @@ final class IsmpApiTest extends TestCase
     {
         $query = new FacadeDocListV2Query();
         $query->setDocumentStatus(FacadeDocListV2Query::DOCUMENT_STATUS_CHECKED_OK);
-        $query->setDateFrom(new \DateTimeImmutable('2019-01-01 11:12:13'));
+        $query->setDateFrom(new \DateTimeImmutable('2019-01-01 11:12:13', new \DateTimeZone('UTC')));
         $expectedResult = new FacadeDocListV2Response(0);
 
         $this->serializer
@@ -269,7 +272,7 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::HTTP_ERRORS => true,
                     RequestOptions::QUERY => [
                         'documentStatus' => FacadeDocListV2Query::DOCUMENT_STATUS_CHECKED_OK,
-                        'dateFrom' => '2019-01-01T11:12:13.000Z',
+                        'dateFrom' => '2019-01-01T11:12:13.000+00:00',
                         'limit' => $query->getLimit()
                     ],
                 ]
@@ -284,7 +287,10 @@ final class IsmpApiTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
-    public function testFacadeDocBody(): void
+    /**
+     * @dataProvider dataFacadeDocBody
+     */
+    public function testFacadeDocBody(?int $limitOption, array $expectedOptions): void
     {
         $expectedResult = new FacadeDocBodyResponse(self::IDENTITY, '2019-01-01', 'IMPORT', 'NEW', 'Tester', 'Test');
 
@@ -301,29 +307,59 @@ final class IsmpApiTest extends TestCase
             ->with(
                 'GET',
                 sprintf('api/v3/facade/doc/%s/body', self::IDENTITY),
-                [
-                    RequestOptions::BODY => null,
-                    RequestOptions::HEADERS => [
-                        'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . self::TOKEN
-                    ],
-                    RequestOptions::HTTP_ERRORS => true,
-                    RequestOptions::QUERY => null,
-                ]
+                $expectedOptions
             )
             ->willReturn(
                 (new Response())
                     ->withBody(stream_for(self::API_RESPONSE))
             );
 
-        $result = $this->api->facadeDocBody(self::TOKEN, self::IDENTITY);
+        $result = $this->api->facadeDocBody(self::TOKEN, self::IDENTITY, $limitOption);
 
         $this->assertEquals($expectedResult, $result);
     }
 
+    public function dataFacadeDocBody(): iterable
+    {
+        yield 'null as a limit' => [
+            null,
+            [
+                RequestOptions::BODY => null,
+                RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . self::TOKEN
+                ],
+                RequestOptions::HTTP_ERRORS => true,
+                RequestOptions::QUERY => null,
+            ]
+        ];
+
+        yield 'number as a limit' => [
+            1000,
+            [
+                RequestOptions::BODY => null,
+                RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . self::TOKEN
+                ],
+                RequestOptions::HTTP_ERRORS => true,
+                RequestOptions::QUERY => [
+                    'limit' => 1000
+                ],
+            ]
+        ];
+    }
+
     public function testFacadeCisList(): void
     {
+        $request = new FacadeCisListRequest(self::IDENTITY);
         $expectedResult = new FacadeCisListResponse();
+        $requestBody = '{"cises": [' . self::IDENTITY . ']}';
+
+        $this->serializer
+            ->method('serialize')
+            ->with($request)
+            ->willReturn($requestBody);
 
         $this->serializer
             ->method('deserialize')
@@ -336,18 +372,16 @@ final class IsmpApiTest extends TestCase
         $this->client->expects($this->once())
             ->method('request')
             ->with(
-                'GET',
+                'POST',
                 'api/v3/facade/cis/cis_list',
                 [
-                    RequestOptions::BODY => null,
+                    RequestOptions::BODY => $requestBody,
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
                         'Authorization' => 'Bearer ' . self::TOKEN
                     ],
                     RequestOptions::HTTP_ERRORS => true,
-                    RequestOptions::QUERY => [
-                        'cis' => self::IDENTITY
-                    ],
+                    RequestOptions::QUERY => null
                 ]
             )
             ->willReturn(
@@ -355,9 +389,49 @@ final class IsmpApiTest extends TestCase
                     ->withBody(stream_for(self::API_RESPONSE))
             );
 
-        $result = $this->api->facadeCisList(self::TOKEN, self::IDENTITY);
+        $result = $this->api->facadeCisList(self::TOKEN, $request);
 
         $this->assertEquals($expectedResult, $result);
+    }
+
+    public function testLkDocumentsCreate(): void
+    {
+        $request = new DocumentCreateRequest(
+            'document',
+            'MANUAL',
+            'signature',
+            ProductGroup::SHOES,
+            DocumentLkType::LP_INTRODUCE_GOODS
+        );
+
+        $this->serializer
+            ->method('serialize')
+            ->with($request)
+            ->willReturn(self::SERIALIZED_VALUE);
+
+        $this->client->expects($this->once())
+            ->method('request')
+            ->with(
+                'POST',
+                'api/v3/lk/documents/create',
+                [
+                    RequestOptions::BODY => self::SERIALIZED_VALUE,
+                    RequestOptions::HEADERS => [
+                        'Content-Type' => 'application/json',
+                        'Authorization' => 'Bearer ' . self::TOKEN,
+                    ],
+                    RequestOptions::HTTP_ERRORS => true,
+                    RequestOptions::QUERY => ['pg' => ProductGroup::SHOES],
+                ]
+            )
+            ->willReturn(
+                (new Response())
+                    ->withBody(stream_for(self::API_RESPONSE))
+            );
+
+        $result = $this->api->lkDocumentsCreate(self::TOKEN, $request);
+
+        $this->assertEquals(self::API_RESPONSE, $result);
     }
 
     public function testLkImportSend(): void
@@ -390,6 +464,40 @@ final class IsmpApiTest extends TestCase
             );
 
         $result = $this->api->lkImportSend(self::TOKEN, $request);
+
+        $this->assertEquals(self::API_RESPONSE, $result);
+    }
+
+    public function testLkReceiptSend(): void
+    {
+        $request = new DocumentCreateRequest('document', 'MANUAL', 'signature');
+
+        $this->serializer
+            ->method('serialize')
+            ->with($request)
+            ->willReturn(self::SERIALIZED_VALUE);
+
+        $this->client->expects($this->once())
+            ->method('request')
+            ->with(
+                'POST',
+                'api/v3/lk/receipt/send',
+                [
+                    RequestOptions::BODY => self::SERIALIZED_VALUE,
+                    RequestOptions::HEADERS => [
+                        'Content-Type' => 'application/json',
+                        'Authorization' => 'Bearer ' . self::TOKEN
+                    ],
+                    RequestOptions::HTTP_ERRORS => true,
+                    RequestOptions::QUERY => null,
+                ]
+            )
+            ->willReturn(
+                (new Response())
+                    ->withBody(stream_for(self::API_RESPONSE))
+            );
+
+        $result = $this->api->lkReceiptSend(self::TOKEN, $request);
 
         $this->assertEquals(self::API_RESPONSE, $result);
     }

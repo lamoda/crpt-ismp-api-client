@@ -11,15 +11,17 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         php: [7.2, 7.3, 7.4]
+        os: [ubuntu-latest]
         env: [
           'low',
           'high',
         ]
-    name: PHP ${{ matrix.php }} Test ${{ matrix.env }}
+    name: PHP ${{ matrix.php }} Test ${{ matrix.env }} on ${{ matrix.os }}
 
     steps:
     - name: Checkout code
@@ -28,8 +30,8 @@ jobs:
     - name: Install PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ matrix.php  }}
-        extension-csv: json, mbstring
+        php-version: ${{ matrix.php }}
+        extensions: json, mbstring
 
     - name: Get Composer Cache Directory
       id: composer-cache

@@ -12,18 +12,26 @@ final class FacadeDocListV2Query
     public const DOCUMENT_STATUS_PROCESSING_ERROR = 'PROCESSING_ERROR';
     public const DOCUMENT_STATUS_UNDEFINED = 'UNDEFINED';
 
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_INTRODUCE_GOODS = 'LP_INTRODUCE_GOODS';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_INTRODUCE_GOODS_CSV = 'LP_INTRODUCE_GOODS_CSV';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_INTRODUCE_GOODS_XML = 'LP_INTRODUCE_GOODS_XML';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_SHIP_GOODS = 'LP_SHIP_GOODS';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_SHIP_GOODS_XML = 'LP_SHIP_GOODS_XML';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_ACCEPT_GOODS = 'LP_ACCEPT_GOODS';
+    /** @deprecated use DocumentLkType constants instead */
     public const DOCUMENT_TYPE_LP_ACCEPT_GOODS_XML = 'LP_ACCEPT_GOODS_XML';
 
     public const ORDER_ASC = 'ASC';
     public const ORDER_DESC = 'DESC';
 
     public const ORDER_COLUMN_DOC_DATE = 'docDate';
+    public const ORDER_COLUMN_RECEIVED_AT = 'receivedAt';
 
     public const PAGE_DIR_NEXT = 'NEXT';
     public const PAGE_DIR_PREV = 'PREV';
@@ -37,15 +45,15 @@ final class FacadeDocListV2Query
      */
     private $dateTo;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $number;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $documentStatus;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $documentType;
     /**
@@ -53,27 +61,27 @@ final class FacadeDocListV2Query
      */
     private $inputFormat;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $participantInn;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $order;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $did;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $orderedColumnValue;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $orderColumn;
     /**
-     * @var string | null
+     * @var string|null
      */
     private $pageDir;
     /**
@@ -216,10 +224,10 @@ final class FacadeDocListV2Query
         $query = [];
 
         self::appendIfNotNull($query, 'dateTo', $this->dateTo, static function (\DateTimeInterface $value) {
-            return $value->format('Y-m-d\TH:i:s.000\Z');
+            return $value->format(DATE_RFC3339_EXTENDED);
         });
         self::appendIfNotNull($query, 'dateFrom', $this->dateFrom, static function (\DateTimeInterface $value) {
-            return $value->format('Y-m-d\TH:i:s.000\Z');
+            return $value->format(DATE_RFC3339_EXTENDED);
         });
         self::appendIfNotNull($query, 'number', $this->number);
         self::appendIfNotNull($query, 'documentStatus', $this->documentStatus);

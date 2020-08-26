@@ -23,7 +23,7 @@ final class FacadeCisItemResponse
      */
     private $gtin;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("producerName")
      */
     private $producerName;
@@ -42,22 +42,22 @@ final class FacadeCisItemResponse
      */
     private $packageType;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("ownerName")
      */
     private $ownerName;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("ownerInn")
      */
     private $ownerInn;
     /**
-     * @var string
+     * @var string|null
      * @SerializedName("productName")
      */
     private $productName;
     /**
-     * @var string
+     * @var string|null
      */
     private $brand;
     /**
@@ -65,118 +65,130 @@ final class FacadeCisItemResponse
      * @SerializedName("countChildren")
      */
     private $countChildren;
+    /**
+     * @var string|null
+     * @SerializedName("agentInn")
+     */
+    private $agentInn;
+    /**
+     * @var string|null
+     * @SerializedName("agentName")
+     */
+    private $agentName;
 
     public function __construct(
         string $cis,
         string $gtin,
-        string $producerName,
         string $status,
         int $emissionDate,
         string $packageType,
-        string $ownerName,
-        string $ownerInn,
-        string $productName,
-        string $brand,
         int $countChildren
     ) {
         $this->cis = $cis;
         $this->gtin = $gtin;
-        $this->producerName = $producerName;
         $this->status = $status;
         $this->emissionDate = $emissionDate;
         $this->packageType = $packageType;
-        $this->ownerName = $ownerName;
-        $this->ownerInn = $ownerInn;
-        $this->productName = $productName;
-        $this->brand = $brand;
         $this->countChildren = $countChildren;
     }
 
-    /**
-     * @return string
-     */
     public function getCis(): string
     {
         return $this->cis;
     }
 
-    /**
-     * @return string
-     */
     public function getGtin(): string
     {
         return $this->gtin;
     }
 
-    /**
-     * @return string
-     */
-    public function getProducerName(): string
+    public function getProducerName(): ?string
     {
         return $this->producerName;
     }
 
-    /**
-     * @return string
-     */
+    public function setProducerName(string $producerName): void
+    {
+        $this->producerName = $producerName;
+    }
+
     public function getStatus(): string
     {
         return $this->status;
     }
 
-    /**
-     * @return int
-     */
     public function getEmissionDate(): int
     {
         return $this->emissionDate;
     }
 
-    /**
-     * @return string
-     */
     public function getPackageType(): string
     {
         return $this->packageType;
     }
 
-    /**
-     * @return string
-     */
-    public function getOwnerName(): string
+    public function getOwnerName(): ?string
     {
         return $this->ownerName;
     }
 
-    /**
-     * @return string
-     */
-    public function getOwnerInn(): string
+    public function setOwnerName(string $ownerName): void
+    {
+        $this->ownerName = $ownerName;
+    }
+
+    public function getOwnerInn(): ?string
     {
         return $this->ownerInn;
     }
 
-    /**
-     * @return string
-     */
-    public function getProductName(): string
+    public function setOwnerInn(string $ownerInn): void
+    {
+        $this->ownerInn = $ownerInn;
+    }
+
+    public function getCountChildren(): int
+    {
+        return $this->countChildren;
+    }
+
+    public function getProductName(): ?string
     {
         return $this->productName;
     }
 
-    /**
-     * @return string
-     */
-    public function getBrand(): string
+    public function setProductName(string $productName): void
+    {
+        $this->productName = $productName;
+    }
+
+    public function getBrand(): ?string
     {
         return $this->brand;
     }
 
-    /**
-     * @return int
-     */
-    public function getCountChildren(): int
+    public function setBrand(string $brand): void
     {
-        return $this->countChildren;
+        $this->brand = $brand;
+    }
+
+    public function getAgentInn(): ?string
+    {
+        return $this->agentInn;
+    }
+
+    public function setAgentInn(?string $agentInn): void
+    {
+        $this->agentInn = $agentInn;
+    }
+
+    public function getAgentName(): ?string
+    {
+        return $this->agentName;
+    }
+
+    public function setAgentName(?string $agentName): void
+    {
+        $this->agentName = $agentName;
     }
 }

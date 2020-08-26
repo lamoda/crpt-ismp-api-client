@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Lamoda\IsmpClient\V3\Dto;
 
+use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse\Body;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 final class FacadeDocBodyResponse
@@ -12,6 +13,11 @@ final class FacadeDocBodyResponse
     public const STATUS_CHECKED_NOT_OK = 'CHECKED_NOT_OK';
     public const STATUS_PROCESSING_ERROR = 'PROCESSING_ERROR';
     public const STATUS_CHECKED_OK = 'CHECKED_OK';
+    public const STATUS_UNDEFINED = 'UNDEFINED';
+    public const STATUS_CANCELLED = 'CANCELLED';
+    public const STATUS_ACCEPTED = 'ACCEPTED';
+    public const STATUS_WAIT_ACCEPTANCE = 'WAIT_ACCEPTANCE';
+    public const STATUS_WAIT_PARTICIPANT_REGISTRATION = 'WAIT_PARTICIPANT_REGISTRATION';
 
     /**
      * @var string
@@ -38,11 +44,16 @@ final class FacadeDocBodyResponse
      */
     private $senderName;
     /**
-     * @var string
+     * @var string|null
      */
     private $content;
-
-    /** @var array|null */
+    /**
+     * @var Body|null
+     */
+    private $body;
+    /**
+     * @var array|null
+     */
     private $errors;
 
     public function __construct(
@@ -51,7 +62,8 @@ final class FacadeDocBodyResponse
         string $type,
         string $status,
         string $senderName,
-        string $content
+        ?string $content = null,
+        ?Body $body = null
     ) {
         $this->number = $number;
         $this->docDate = $docDate;
@@ -59,6 +71,7 @@ final class FacadeDocBodyResponse
         $this->status = $status;
         $this->senderName = $senderName;
         $this->content = $content;
+        $this->body = $body;
     }
 
     public function getNumber(): string
@@ -86,9 +99,14 @@ final class FacadeDocBodyResponse
         return $this->senderName;
     }
 
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
+    }
+
+    public function getBody(): ?Body
+    {
+        return $this->body;
     }
 
     public function getErrors(): ?array
