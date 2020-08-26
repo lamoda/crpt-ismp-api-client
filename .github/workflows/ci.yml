@@ -11,7 +11,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         php: [7.2, 7.3, 7.4]
@@ -22,10 +22,11 @@ jobs:
     name: PHP ${{ matrix.php }} Test ${{ matrix.env }}
 
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Install PHP
-      uses: shivammathur/setup-php@1.6.0
+      uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php  }}
         extension-csv: json, mbstring
@@ -50,6 +51,7 @@ jobs:
         if [ "$DEPENDENCIES" = 'low' ]; then
             composer update $DEFAULT_COMPOSER_FLAGS --prefer-lowest
         fi;
-
       env:
         DEPENDENCIES: ${{ matrix.env}}
+    - name: Run tests
+      run: ./vendor/bin/phpunit
