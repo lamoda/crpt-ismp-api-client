@@ -55,6 +55,22 @@ final class FacadeDocBodyResponse
      * @var array|null
      */
     private $errors;
+    /**
+     * @var string|null
+     */
+    private $receiverName;
+    /**
+     * @var string|null
+     */
+    private $downloadStatus;
+    /**
+     * @var string|null
+     */
+    private $downloadDesc;
+    /**
+     * @var string|null
+     */
+    private $cisTotal;
 
     public function __construct(
         string $number,
@@ -117,5 +133,53 @@ final class FacadeDocBodyResponse
     public function setErrors(?array $errors)
     {
         $this->errors = $errors;
+    }
+
+    public function getReceiverName(): ?string
+    {
+        return $this->receiverName;
+    }
+
+    public function setReceiverName(?string $receiverName): self
+    {
+        $this->receiverName = $receiverName;
+
+        return $this;
+    }
+
+    public function getDownloadStatus(): ?string
+    {
+        return $this->downloadStatus;
+    }
+
+    public function setDownloadStatus(?string $downloadStatus): self
+    {
+        $this->downloadStatus = $downloadStatus;
+
+        return $this;
+    }
+
+    public function getDownloadDesc(): ?string
+    {
+        return $this->downloadDesc;
+    }
+
+    public function setDownloadDesc(?string $downloadDesc): self
+    {
+        $this->downloadDesc = $downloadDesc;
+
+        return $this;
+    }
+
+    public function getCisTotal(): ?string
+    {
+        return $this->cisTotal;
+    }
+
+    public function setCisTotal(?string $cisTotal): self
+    {
+        $this->cisTotal = $cisTotal;
+
+        return $this;
     }
 }

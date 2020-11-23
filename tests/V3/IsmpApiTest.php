@@ -30,6 +30,7 @@ use Lamoda\IsmpClient\V3\IsmpApi;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
+
 use function GuzzleHttp\Psr7\stream_for;
 
 final class IsmpApiTest extends TestCase
@@ -190,7 +191,7 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::BODY => self::SERIALIZED_VALUE,
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . self::TOKEN
+                        'Authorization' => 'Bearer ' . self::TOKEN,
                     ],
                     RequestOptions::HTTP_ERRORS => true,
                     RequestOptions::QUERY => null,
@@ -227,7 +228,7 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::BODY => null,
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . self::TOKEN
+                        'Authorization' => 'Bearer ' . self::TOKEN,
                     ],
                     RequestOptions::HTTP_ERRORS => true,
                     RequestOptions::QUERY => null,
@@ -267,13 +268,13 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::BODY => null,
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . self::TOKEN
+                        'Authorization' => 'Bearer ' . self::TOKEN,
                     ],
                     RequestOptions::HTTP_ERRORS => true,
                     RequestOptions::QUERY => [
                         'documentStatus' => FacadeDocListV2Query::DOCUMENT_STATUS_CHECKED_OK,
                         'dateFrom' => '2019-01-01T11:12:13.000+00:00',
-                        'limit' => $query->getLimit()
+                        'limit' => $query->getLimit(),
                     ],
                 ]
             )
@@ -293,6 +294,7 @@ final class IsmpApiTest extends TestCase
     public function testFacadeDocBody(?int $limitOption, array $expectedOptions): void
     {
         $expectedResult = new FacadeDocBodyResponse(self::IDENTITY, '2019-01-01', 'IMPORT', 'NEW', 'Tester', 'Test');
+        $expectedResult->setCisTotal('100');
 
         $this->serializer
             ->method('deserialize')
@@ -327,11 +329,11 @@ final class IsmpApiTest extends TestCase
                 RequestOptions::BODY => null,
                 RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer ' . self::TOKEN
+                    'Authorization' => 'Bearer ' . self::TOKEN,
                 ],
                 RequestOptions::HTTP_ERRORS => true,
                 RequestOptions::QUERY => null,
-            ]
+            ],
         ];
 
         yield 'number as a limit' => [
@@ -340,13 +342,13 @@ final class IsmpApiTest extends TestCase
                 RequestOptions::BODY => null,
                 RequestOptions::HEADERS => [
                     'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer ' . self::TOKEN
+                    'Authorization' => 'Bearer ' . self::TOKEN,
                 ],
                 RequestOptions::HTTP_ERRORS => true,
                 RequestOptions::QUERY => [
-                    'limit' => 1000
+                    'limit' => 1000,
                 ],
-            ]
+            ],
         ];
     }
 
@@ -378,10 +380,10 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::BODY => $requestBody,
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . self::TOKEN
+                        'Authorization' => 'Bearer ' . self::TOKEN,
                     ],
                     RequestOptions::HTTP_ERRORS => true,
-                    RequestOptions::QUERY => null
+                    RequestOptions::QUERY => null,
                 ]
             )
             ->willReturn(
@@ -452,7 +454,7 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::BODY => self::SERIALIZED_VALUE,
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . self::TOKEN
+                        'Authorization' => 'Bearer ' . self::TOKEN,
                     ],
                     RequestOptions::HTTP_ERRORS => true,
                     RequestOptions::QUERY => null,
@@ -486,7 +488,7 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::BODY => self::SERIALIZED_VALUE,
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . self::TOKEN
+                        'Authorization' => 'Bearer ' . self::TOKEN,
                     ],
                     RequestOptions::HTTP_ERRORS => true,
                     RequestOptions::QUERY => null,
@@ -520,7 +522,7 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::BODY => self::SERIALIZED_VALUE,
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . self::TOKEN
+                        'Authorization' => 'Bearer ' . self::TOKEN,
                     ],
                     RequestOptions::HTTP_ERRORS => true,
                     RequestOptions::QUERY => null,
@@ -554,7 +556,7 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::BODY => self::SERIALIZED_VALUE,
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . self::TOKEN
+                        'Authorization' => 'Bearer ' . self::TOKEN,
                     ],
                     RequestOptions::HTTP_ERRORS => true,
                     RequestOptions::QUERY => null,
@@ -592,11 +594,11 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::BODY => null,
                     RequestOptions::HEADERS => [
                         'Content-Type' => 'application/json',
-                        'Authorization' => 'Bearer ' . self::TOKEN
+                        'Authorization' => 'Bearer ' . self::TOKEN,
                     ],
                     RequestOptions::HTTP_ERRORS => true,
                     RequestOptions::QUERY => [
-                        'gtins' => implode(',', $request)
+                        'gtins' => implode(',', $request),
                     ],
                 ]
             )
