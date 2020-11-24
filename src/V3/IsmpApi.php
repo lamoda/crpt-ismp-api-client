@@ -84,11 +84,26 @@ final class IsmpApi implements IsmpApiInterface
         return $this->serializer->deserialize(FacadeDocListV2Response::class, $result);
     }
 
-    public function facadeDocBody(string $token, string $docId, int $limit = null): FacadeDocBodyResponse
-    {
+    public function facadeDocBody(
+        string $token,
+        string $docId,
+        ?int $limit = null,
+        ?string $orderColumn = null,
+        ?string $orderedColumnValue = null,
+        ?string $pageDir = null
+    ): FacadeDocBodyResponse {
         $query = null;
         if ($limit !== null) {
-            $query = ['limit' => $limit];
+            $query['limit'] = $limit;
+        }
+        if ($orderColumn !== null) {
+            $query['orderColumn'] = $orderColumn;
+        }
+        if ($orderedColumnValue !== null) {
+            $query['orderedColumnValue'] = $orderedColumnValue;
+        }
+        if ($pageDir !== null) {
+            $query['pageDir'] = $pageDir;
         }
 
         $result = $this->request('GET', sprintf('/api/v3/facade/doc/%s/body', $docId), null, $query, $token);

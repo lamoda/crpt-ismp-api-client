@@ -291,8 +291,13 @@ final class IsmpApiTest extends TestCase
     /**
      * @dataProvider dataFacadeDocBody
      */
-    public function testFacadeDocBody(?int $limitOption, array $expectedOptions): void
-    {
+    public function testFacadeDocBody(
+        ?int $limitOption,
+        ?string $orderColumnOption,
+        ?string $orderedColumnValueOption,
+        ?string $pageDirOption,
+        array $expectedOptions
+    ): void {
         $expectedResult = new FacadeDocBodyResponse(self::IDENTITY, '2019-01-01', 'IMPORT', 'NEW', 'Tester', 'Test');
         $expectedResult->setCisTotal('100');
 
@@ -316,14 +321,24 @@ final class IsmpApiTest extends TestCase
                     ->withBody(stream_for(self::API_RESPONSE))
             );
 
-        $result = $this->api->facadeDocBody(self::TOKEN, self::IDENTITY, $limitOption);
+        $result = $this->api->facadeDocBody(
+            self::TOKEN,
+            self::IDENTITY,
+            $limitOption,
+            $orderColumnOption,
+            $orderedColumnValueOption,
+            $pageDirOption
+        );
 
         $this->assertEquals($expectedResult, $result);
     }
 
     public function dataFacadeDocBody(): iterable
     {
-        yield 'null as a limit' => [
+        yield 'all nullable parameters' => [
+            null,
+            null,
+            null,
             null,
             [
                 RequestOptions::BODY => null,
@@ -336,8 +351,11 @@ final class IsmpApiTest extends TestCase
             ],
         ];
 
-        yield 'number as a limit' => [
+        yield 'only limit' => [
             1000,
+            null,
+            null,
+            null,
             [
                 RequestOptions::BODY => null,
                 RequestOptions::HEADERS => [
@@ -347,6 +365,82 @@ final class IsmpApiTest extends TestCase
                 RequestOptions::HTTP_ERRORS => true,
                 RequestOptions::QUERY => [
                     'limit' => 1000,
+                ],
+            ],
+        ];
+
+        yield 'only order column option' => [
+            null,
+            'order-column',
+            null,
+            null,
+            [
+                RequestOptions::BODY => null,
+                RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . self::TOKEN,
+                ],
+                RequestOptions::HTTP_ERRORS => true,
+                RequestOptions::QUERY => [
+                    'orderColumn' => 'order-column',
+                ],
+            ],
+        ];
+
+        yield 'only ordered column value option' => [
+            null,
+            null,
+            'ordered-column-value',
+            null,
+            [
+                RequestOptions::BODY => null,
+                RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . self::TOKEN,
+                ],
+                RequestOptions::HTTP_ERRORS => true,
+                RequestOptions::QUERY => [
+                    'orderedColumnValue' => 'ordered-column-value',
+                ],
+            ],
+        ];
+
+        yield 'only page dir option' => [
+            null,
+            null,
+            null,
+            'page-dir',
+            [
+                RequestOptions::BODY => null,
+                RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . self::TOKEN,
+                ],
+                RequestOptions::HTTP_ERRORS => true,
+                RequestOptions::QUERY => [
+                    'pageDir' => 'page-dir'
+                ],
+            ],
+        ];
+
+
+        yield 'all parameters' => [
+            1000,
+            'order-column',
+            'ordered-column-value',
+            'page-dir',
+            [
+                RequestOptions::BODY => null,
+                RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . self::TOKEN,
+                ],
+                RequestOptions::HTTP_ERRORS => true,
+                RequestOptions::QUERY => [
+                    'limit' => 1000,
+                    'orderColumn' => 'order-column',
+                    'orderedColumnValue' => 'ordered-column-value',
+                    'pageDir' => 'page-dir',
                 ],
             ],
         ];
