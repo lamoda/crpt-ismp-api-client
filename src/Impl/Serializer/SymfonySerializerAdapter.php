@@ -32,7 +32,12 @@ final class SymfonySerializerAdapter implements SerializerInterface
     public function deserialize(string $class, $data): object
     {
         try {
-            return $this->serializer->deserialize($data, $class, 'json');
+            return $this->serializer->deserialize(
+                $data,
+                $class,
+                'json',
+                ['disable_type_enforcement' => true]
+            );
         } catch (\Throwable $throwable) {
             throw IsmpSerializerErrorException::becauseOfError($throwable);
         }

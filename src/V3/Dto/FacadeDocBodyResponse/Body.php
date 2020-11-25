@@ -10,27 +10,27 @@ use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse\Body\Products\Product;
 class Body
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $originalString;
     /**
-     * @var string
+     * @var string|null
      */
     private $regDate;
     /**
-     * @var DocumentDescription
+     * @var DocumentDescription|null
      */
     private $documentDescription;
     /**
-     * @var string
+     * @var string|null
      */
     private $docType;
     /**
-     * @var string
+     * @var string|null
      */
     private $receiver;
     /**
-     * @var string
+     * @var string|null
      */
     private $docId;
     /**
@@ -70,72 +70,72 @@ class Body
      */
     private $ownerInn;
 
-    public function getOriginalString(): string
+    public function getOriginalString(): ?string
     {
         return $this->originalString;
     }
 
-    public function setOriginalString(string $originalString): self
+    public function setOriginalString(?string $originalString): self
     {
         $this->originalString = $originalString;
 
         return $this;
     }
 
-    public function getRegDate(): string
+    public function getRegDate(): ?string
     {
         return $this->regDate;
     }
 
-    public function setRegDate(string $regDate): self
+    public function setRegDate(?string $regDate): self
     {
         $this->regDate = $regDate;
 
         return $this;
     }
 
-    public function getDocumentDescription(): DocumentDescription
+    public function getDocumentDescription(): ?DocumentDescription
     {
         return $this->documentDescription;
     }
 
-    public function setDocumentDescription(DocumentDescription $documentDescription): self
+    public function setDocumentDescription(?DocumentDescription $documentDescription): self
     {
         $this->documentDescription = $documentDescription;
 
         return $this;
     }
 
-    public function getDocType(): string
+    public function getDocType(): ?string
     {
         return $this->docType;
     }
 
-    public function setDocType(string $docType): self
+    public function setDocType(?string $docType): self
     {
         $this->docType = $docType;
 
         return $this;
     }
 
-    public function getReceiver(): string
+    public function getReceiver(): ?string
     {
         return $this->receiver;
     }
 
-    public function setReceiver(string $receiver): self
+    public function setReceiver(?string $receiver): self
     {
         $this->receiver = $receiver;
 
         return $this;
     }
 
-    public function getDocId(): string
+    public function getDocId(): ?string
     {
         return $this->docId;
     }
 
-    public function setDocId(string $docId): self
+    public function setDocId(?string $docId): self
     {
         $this->docId = $docId;
 
@@ -148,6 +148,13 @@ class Body
     public function getProducts(): array
     {
         return $this->products;
+    }
+
+    public function setProducts(array $products): self
+    {
+        $this->products = $products;
+
+        return $this;
     }
 
     public function addProduct(Product $product): self
