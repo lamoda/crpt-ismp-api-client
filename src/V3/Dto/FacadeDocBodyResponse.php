@@ -130,9 +130,11 @@ final class FacadeDocBodyResponse
         return $this->errors;
     }
 
-    public function setErrors(?array $errors)
+    public function setErrors(?array $errors): self
     {
         $this->errors = $errors;
+
+        return $this;
     }
 
     public function getReceiverName(): ?string
