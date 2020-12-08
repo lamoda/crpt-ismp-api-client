@@ -38,6 +38,10 @@ class Body
      */
     private $products = [];
     /**
+     * @var Product[]
+     */
+    private $productsList = [];
+    /**
      * @var string|null
      */
     private $turnoverType;
@@ -153,6 +157,18 @@ class Body
     public function setProducts(array $products): self
     {
         $this->products = $products;
+
+        return $this;
+    }
+
+    public function getProductsList(): array
+    {
+        return $this->productsList;
+    }
+
+    public function setProductsList(array $productsList): self
+    {
+        $this->productsList = $productsList;
 
         return $this;
     }

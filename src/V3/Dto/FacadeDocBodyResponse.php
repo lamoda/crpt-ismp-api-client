@@ -38,7 +38,7 @@ final class FacadeDocBodyResponse
      */
     private $status;
     /**
-     * @var string
+     * @var string|null
      *
      * @SerializedName("senderName")
      */
@@ -77,7 +77,7 @@ final class FacadeDocBodyResponse
         string $docDate,
         string $type,
         string $status,
-        string $senderName,
+        ?string $senderName = null,
         ?string $content = null,
         ?Body $body = null
     ) {
@@ -110,7 +110,7 @@ final class FacadeDocBodyResponse
         return $this->status;
     }
 
-    public function getSenderName(): string
+    public function getSenderName(): ?string
     {
         return $this->senderName;
     }
