@@ -13,6 +13,7 @@ final class FacadeMarkedProductsResponse
     public const STATUS_INTRODUCED = 'INTRODUCED';
     public const STATUS_RETIRED = 'RETIRED';
     public const STATUS_ISSUED = 'ISSUED';
+    public const STATUS_WRITTEN_OFF = 'WRITTEN_OFF';
 
     /**
      * @var string
