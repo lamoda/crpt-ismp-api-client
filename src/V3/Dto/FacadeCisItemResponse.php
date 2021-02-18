@@ -12,6 +12,7 @@ final class FacadeCisItemResponse
     public const STATUS_APPLIED = 'APPLIED';
     public const STATUS_INTRODUCED = 'INTRODUCED';
     public const STATUS_RETIRED = 'RETIRED';
+    public const STATUS_WRITTEN_OFF = 'WRITTEN_OFF';
     public const STATUS_ISSUED = 'ISSUED';
 
     /**
