@@ -6,6 +6,7 @@ namespace Lamoda\IsmpClient\Impl\Serializer;
 
 use Lamoda\IsmpClient\Exception\IsmpSerializerErrorException;
 use Lamoda\IsmpClient\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Serializer as SymfonySerializer;
 
 final class SymfonySerializerAdapter implements SerializerInterface
@@ -23,7 +24,7 @@ final class SymfonySerializerAdapter implements SerializerInterface
     public function serialize(object $object)
     {
         try {
-            return $this->serializer->serialize($object, 'json');
+            return $this->serializer->serialize($object, 'json', [AbstractObjectNormalizer::SKIP_NULL_VALUES => true]);
         } catch (\Throwable $throwable) {
             throw IsmpSerializerErrorException::becauseOfError($throwable);
         }
