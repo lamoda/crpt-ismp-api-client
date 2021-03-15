@@ -50,10 +50,14 @@ final class IsmpApi implements IsmpApiInterface
         return $this->serializer->deserialize(AuthCertKeyResponse::class, $result);
     }
 
-    public function authCert(AuthCertRequest $request): AuthCertResponse
+    public function authCert(AuthCertRequest $request, ?string $connection = null): AuthCertResponse
     {
         $body = $this->serializer->serialize($request);
-        $result = $this->request('POST', '/api/v3/auth/cert/', $body);
+        $result = $this->request(
+            'POST',
+            sprintf('/api/v3/auth/cert/%s', $connection),
+            $body
+        );
 
         /* @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->serializer->deserialize(AuthCertResponse::class, $result);

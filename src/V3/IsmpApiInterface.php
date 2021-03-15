@@ -23,7 +23,7 @@ interface IsmpApiInterface
 {
     public function authCertKey(): AuthCertKeyResponse;
 
-    public function authCert(AuthCertRequest $request): AuthCertResponse;
+    public function authCert(AuthCertRequest $request, ?string $connection = null): AuthCertResponse;
 
     public function facadeOrder(string $token, FacadeOrderRequest $request): FacadeOrderResponse;
 

@@ -122,11 +122,17 @@ final class IsmpApiTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
-    public function testAuthCert(): void
-    {
-        $request = new AuthCertRequest(self::UUID, self::RANDOM_DATA);
-        $expectedResult = new AuthCertResponse('token-value');
-
+    /**
+     * @dataProvider provideTestAuthCertData
+     * @param AuthCertRequest $request
+     * @param string|null $connection
+     * @param AuthCertResponse $expectedResult
+     */
+    public function testAuthCert(
+        AuthCertRequest $request,
+        ?string $connection,
+        AuthCertResponse $expectedResult
+    ): void {
         $this->serializer
             ->method('serialize')
             ->with($request)
@@ -144,7 +150,7 @@ final class IsmpApiTest extends TestCase
             ->method('request')
             ->with(
                 'POST',
-                'api/v3/auth/cert/',
+                sprintf('api/v3/auth/cert/%s', $connection),
                 [
                     RequestOptions::BODY => self::SERIALIZED_VALUE,
                     RequestOptions::HEADERS => [
@@ -159,9 +165,24 @@ final class IsmpApiTest extends TestCase
                     ->withBody(stream_for(self::API_RESPONSE))
             );
 
-        $result = $this->api->authCert($request);
+        $result = $this->api->authCert($request, $connection);
 
         $this->assertEquals($expectedResult, $result);
+    }
+
+    public function provideTestAuthCertData(): iterable
+    {
+        yield 'Without connection' => [
+            $request = new AuthCertRequest(self::UUID, self::RANDOM_DATA),
+            null,
+            $response = new AuthCertResponse('token-value')
+        ];
+
+        yield 'With connection' => [
+            $request,
+            'connection',
+            $response
+        ];
     }
 
     public function testFacadeOrder(): void
@@ -289,7 +310,7 @@ final class IsmpApiTest extends TestCase
     }
 
     /**
-     * @dataProvider dataFacadeDocBody
+     * @dataProvider provideTestFacadeDocBodyData
      */
     public function testFacadeDocBody(
         ?int $limitOption,
@@ -333,7 +354,7 @@ final class IsmpApiTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
-    public function dataFacadeDocBody(): iterable
+    public function provideTestFacadeDocBodyData(): iterable
     {
         yield 'all nullable parameters' => [
             null,
