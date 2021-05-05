@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Lamoda\IsmpClient\Tests\Impl\Serializer;
+namespace Lamoda\IsmpClient\Tests\Impl\Serializer\V4;
 
-use Lamoda\IsmpClient\Impl\Serializer\FacadeCisListResponseDenormalizer;
-use Lamoda\IsmpClient\V3\Dto\FacadeCisItemResponse;
-use Lamoda\IsmpClient\V3\Dto\FacadeCisListResponse;
+use Lamoda\IsmpClient\Impl\Serializer\V4\FacadeCisListResponseDenormalizer;
+use Lamoda\IsmpClient\V4\Dto\FacadeCisItemResponse;
+use Lamoda\IsmpClient\V4\Dto\FacadeCisListResponse;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
@@ -80,8 +80,8 @@ final class FacadeCisListResponseDenormalizerTest extends TestCase
     {
         $this->denormalizer->setDenormalizer($this->inner);
 
-        $item1 = new FacadeCisItemResponse('', '', '', 0, '', 0);
-        $item2 = new FacadeCisItemResponse('', '', '', 0, '', 0);
+        $item1 = new FacadeCisItemResponse('', '', '', '', '', 0);
+        $item2 = new FacadeCisItemResponse('', '', '', '', '', 0);
 
         $expectedResult = new FacadeCisListResponse($item1, $item2);
 

@@ -34,8 +34,10 @@ final class SymfonySerializerAdapterFactory
 
         $symfonySerializer = new Serializer(
             [
-                new FacadeCisListResponseDenormalizer(),
-                new FacadeDocBodyResponseBodyDenormalizer(),
+                new V3\FacadeCisListResponseDenormalizer(),
+                new V4\FacadeCisListResponseDenormalizer(),
+                new V3\FacadeDocBodyResponseBodyDenormalizer(),
+                new V4\FacadeDocBodyResponseBodyDenormalizer(),
                 $normalizer,
                 new ArrayDenormalizer(),
             ],
