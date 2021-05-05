@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lamoda\IsmpClient\Tests\Impl\Serializer;
+namespace Lamoda\IsmpClient\Tests\Impl\Serializer\V3;
 
 use Lamoda\IsmpClient\Exception\IsmpSerializerErrorException;
 use Lamoda\IsmpClient\Impl\Serializer\SymfonySerializerAdapterFactory;

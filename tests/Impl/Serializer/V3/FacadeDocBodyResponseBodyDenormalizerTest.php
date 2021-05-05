@@ -1,8 +1,8 @@
 <?php
 
-namespace Impl\Serializer;
+namespace Impl\Serializer\V3;
 
-use Lamoda\IsmpClient\Impl\Serializer\FacadeDocBodyResponseBodyDenormalizer;
+use Lamoda\IsmpClient\Impl\Serializer\V3\FacadeDocBodyResponseBodyDenormalizer;
 use Lamoda\IsmpClient\Tests\Stub\SerializerDenormalizer;
 use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse\Body;
 use PHPUnit\Framework\MockObject\MockObject;

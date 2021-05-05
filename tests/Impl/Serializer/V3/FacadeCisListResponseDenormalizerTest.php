@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Lamoda\IsmpClient\Tests\Impl\Serializer;
+namespace Lamoda\IsmpClient\Tests\Impl\Serializer\V3;
 
-use Lamoda\IsmpClient\Impl\Serializer\FacadeCisListResponseDenormalizer;
+use Lamoda\IsmpClient\Impl\Serializer\V3\FacadeCisListResponseDenormalizer;
 use Lamoda\IsmpClient\V3\Dto\FacadeCisItemResponse;
 use Lamoda\IsmpClient\V3\Dto\FacadeCisListResponse;
 use PHPUnit\Framework\MockObject\MockObject;

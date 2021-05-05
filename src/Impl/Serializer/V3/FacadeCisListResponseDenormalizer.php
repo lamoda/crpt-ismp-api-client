@@ -2,28 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Lamoda\IsmpClient\Impl\Serializer;
+namespace Lamoda\IsmpClient\Impl\Serializer\V3;
 
-use Lamoda\IsmpClient\V3\Dto\FacadeDocBodyResponse\Body;
+use Lamoda\IsmpClient\V3\Dto\FacadeCisItemResponse;
+use Lamoda\IsmpClient\V3\Dto\FacadeCisListResponse;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\ContextAwareDenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 
-final class FacadeDocBodyResponseBodyDenormalizer implements ContextAwareDenormalizerInterface, DenormalizerAwareInterface, CacheableSupportsMethodInterface
+final class FacadeCisListResponseDenormalizer implements ContextAwareDenormalizerInterface, DenormalizerAwareInterface, CacheableSupportsMethodInterface
 {
-    private const ORIGINAL_STRING_FIELD_KEY = 'original_string';
-
     /**
-     * @var SerializerInterface|DenormalizerInterface
+     * @var DenormalizerInterface
      */
     private $denormalizer;
 
     /**
      * {@inheritdoc}
+     *
+     * @throws NotNormalizableValueException
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
@@ -33,34 +34,31 @@ final class FacadeDocBodyResponseBodyDenormalizer implements ContextAwareDenorma
         if (!\is_array($data)) {
             throw new InvalidArgumentException('Data expected to be an array, ' . \gettype($data) . ' given.');
         }
-        if (Body::class !== $class) {
+        if (FacadeCisListResponse::class !== $class) {
             throw new InvalidArgumentException('Unsupported class: ' . $class);
         }
 
-        $data[self::ORIGINAL_STRING_FIELD_KEY] = $this->denormalizer->serialize($data, $format, $context);
-
-        return $this->denormalizer->denormalize($data, $class, $format, $context);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
-    {
-        return Body::class === $type
-            && is_array($data)
-            && !array_key_exists(self::ORIGINAL_STRING_FIELD_KEY, $data);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setDenormalizer(DenormalizerInterface $denormalizer): void
-    {
-        if (!$denormalizer instanceof SerializerInterface) {
-            throw new InvalidArgumentException('Denormalizer must implement serializer interface also');
+        $items = [];
+        foreach ($data as $datum) {
+            $items[] = $this->denormalizer->denormalize($datum, FacadeCisItemResponse::class, $format, $context);
         }
 
+        return new FacadeCisListResponse(...$items);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supportsDenormalization($data, $type, $format = null, array $context = [])
+    {
+        return FacadeCisListResponse::class === $type;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDenormalizer(DenormalizerInterface $denormalizer)
+    {
         $this->denormalizer = $denormalizer;
     }
 
