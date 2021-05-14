@@ -48,9 +48,7 @@ final class SymfonySerializerAdapterTest extends TestCase
                         'token' => 'test_token',
                     ]
                 ),
-                new AuthCertResponse(
-                    'test_token'
-                ),
+                new AuthCertResponse('test_token'),
             ],
             [
                 FacadeDocListV2Response::class,
