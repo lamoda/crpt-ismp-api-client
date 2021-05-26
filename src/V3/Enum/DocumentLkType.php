@@ -6,6 +6,9 @@ namespace Lamoda\IsmpClient\V3\Enum;
 
 final class DocumentLkType
 {
+    public const SETS_AGGREGATION = 'SETS_AGGREGATION'; // Переагрегация. json
+    public const SETS_AGGREGATION_CSV = 'SETS_AGGREGATION_CSV'; // Переагрегация. csv
+    public const SETS_AGGREGATION_XML = 'SETS_AGGREGATION_XML'; // Переагрегация. xml
     public const REAGGREGATION_DOCUMENT = 'REAGGREGATION_DOCUMENT'; // Переагрегация. json
     public const REAGGREGATION_DOCUMENT_CSV = 'REAGGREGATION_DOCUMENT_CSV'; // Переагрегация. csv
     public const REAGGREGATION_DOCUMENT_XML = 'REAGGREGATION_DOCUMENT_XML'; // Переагрегация. xml
