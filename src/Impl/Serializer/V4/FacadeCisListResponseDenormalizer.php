@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Lamoda\IsmpClient\Impl\Serializer;
+namespace Lamoda\IsmpClient\Impl\Serializer\V4;
 
-use Lamoda\IsmpClient\V3\Dto\FacadeCisItemResponse;
-use Lamoda\IsmpClient\V3\Dto\FacadeCisListResponse;
+use Lamoda\IsmpClient\V4\Dto\FacadeCisItemResponse;
+use Lamoda\IsmpClient\V4\Dto\FacadeCisListResponse;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;

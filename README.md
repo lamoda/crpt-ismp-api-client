@@ -20,7 +20,7 @@ composer require lamoda/crpt-ismp-api-client
 This library implements API client for the Labeling and Traceability Information System
 (or "Информационная система маркировки и прослеживаемости" in Russian, ISMP) of the CRPT (https://markirovka.crpt.ru)
 
-Library implements V3 version of ISMP Api's
+Library implements V3 and V4 version of ISMP Api's
 
 Currently this client implements just a subset of the ISMP Api methods.
 
