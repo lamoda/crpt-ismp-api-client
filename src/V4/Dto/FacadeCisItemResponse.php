@@ -11,23 +11,23 @@ final class FacadeCisItemResponse
     public const STATUS_EMITTED = 'EMITTED';
     public const STATUS_APPLIED = 'APPLIED';
     public const STATUS_INTRODUCED = 'INTRODUCED';
-    public const STATUS_RETIRED = 'RETIRED';
     public const STATUS_WRITTEN_OFF = 'WRITTEN_OFF';
-    public const STATUS_ISSUED = 'ISSUED';
+    public const STATUS_RETIRED = 'RETIRED';
+    public const STATUS_DISAGGREGATION = 'DISAGGREGATION';
 
     /**
      * @var string
      */
     private $cis;
     /**
-     * @var string
+     * @var string|null
      */
-    private $gtin;
+    private $gtin = null;
     /**
      * @var string|null
      * @SerializedName("producerName")
      */
-    private $producerName;
+    private $producerName = null;
     /**
      * @var string
      */
@@ -37,6 +37,10 @@ final class FacadeCisItemResponse
      * @SerializedName("emissionDate")
      */
     private $emissionDate;
+    /** @var string */
+    private $emissionType;
+    /** @var string|null */
+    private $producedDate = null;
     /**
      * @var string
      * @SerializedName("packType")
@@ -46,61 +50,83 @@ final class FacadeCisItemResponse
      * @var string|null
      * @SerializedName("ownerName")
      */
-    private $ownerName;
+    private $ownerName = null;
     /**
      * @var string|null
      * @SerializedName("ownerInn")
      */
-    private $ownerInn;
+    private $ownerInn = null;
     /**
      * @var string|null
      * @SerializedName("productName")
      */
-    private $productName;
+    private $productName = null;
     /**
      * @var string|null
      */
-    private $brand;
+    private $brand = null;
+    /** @var string[]|null */
+    private $prevCises = null;
+    /** @var string[]|null */
+    private $nextCises = null;
+    /** @var string|null */
+    private $statusEx = null;
     /**
-     * @var int
+     * @var FacadeCisItemResponse[]
+     */
+    private $children = [];
+    /**
+     * @var int|null
      * @SerializedName("countChildren")
      */
-    private $countChildren;
+    private $countChildren = null;
+    /**
+     * @var string|null
+     */
+    private $parent= null;
     /**
      * @var string|null
      * @SerializedName("agentInn")
      */
-    private $agentInn;
+    private $lastDocId= null;
+    /** @var string|null */
+    private $introductionDate= null;
+    /** @var string|null */
+    private $agentInn= null;
     /**
      * @var string|null
      * @SerializedName("agentName")
      */
-    private $agentName;
-
-    public function __construct(
-        string $cis,
-        string $gtin,
-        string $status,
-        string $emissionDate,
-        string $packType,
-        int $countChildren
-    ) {
-        $this->cis = $cis;
-        $this->gtin = $gtin;
-        $this->status = $status;
-        $this->emissionDate = $emissionDate;
-        $this->packType = $packType;
-        $this->countChildren = $countChildren;
-    }
+    private $agentName= null;
+    /** @var string */
+    private $lastStatusChangeDate;
+    /** @var string|null */
+    private $turnoverType= null;
+    /** @var string */
+    private $productGroup;
+    /** @var string|null */
+    private $tnVed10= null;
+    /** @var bool|null */
+    private $markWithdraw = null;
 
     public function getCis(): string
     {
         return $this->cis;
     }
 
-    public function getGtin(): string
+    public function setCis(string $cis): void
+    {
+        $this->cis = $cis;
+    }
+
+    public function getGtin(): ?string
     {
         return $this->gtin;
+    }
+
+    public function setGtin(?string $gtin): void
+    {
+        $this->gtin = $gtin;
     }
 
     public function getProducerName(): ?string
@@ -108,7 +134,7 @@ final class FacadeCisItemResponse
         return $this->producerName;
     }
 
-    public function setProducerName(string $producerName): void
+    public function setProducerName(?string $producerName): void
     {
         $this->producerName = $producerName;
     }
@@ -118,9 +144,39 @@ final class FacadeCisItemResponse
         return $this->status;
     }
 
+    public function setStatus(string $status): void
+    {
+        $this->status = $status;
+    }
+
     public function getEmissionDate(): string
     {
         return $this->emissionDate;
+    }
+
+    public function setEmissionDate(string $emissionDate): void
+    {
+        $this->emissionDate = $emissionDate;
+    }
+
+    public function getEmissionType(): string
+    {
+        return $this->emissionType;
+    }
+
+    public function setEmissionType(string $emissionType): void
+    {
+        $this->emissionType = $emissionType;
+    }
+
+    public function getProducedDate(): ?string
+    {
+        return $this->producedDate;
+    }
+
+    public function setProducedDate(?string $producedDate): void
+    {
+        $this->producedDate = $producedDate;
     }
 
     public function getPackType(): string
@@ -128,12 +184,17 @@ final class FacadeCisItemResponse
         return $this->packType;
     }
 
+    public function setPackType(string $packType): void
+    {
+        $this->packType = $packType;
+    }
+
     public function getOwnerName(): ?string
     {
         return $this->ownerName;
     }
 
-    public function setOwnerName(string $ownerName): void
+    public function setOwnerName(?string $ownerName): void
     {
         $this->ownerName = $ownerName;
     }
@@ -143,14 +204,9 @@ final class FacadeCisItemResponse
         return $this->ownerInn;
     }
 
-    public function setOwnerInn(string $ownerInn): void
+    public function setOwnerInn(?string $ownerInn): void
     {
         $this->ownerInn = $ownerInn;
-    }
-
-    public function getCountChildren(): int
-    {
-        return $this->countChildren;
     }
 
     public function getProductName(): ?string
@@ -158,7 +214,7 @@ final class FacadeCisItemResponse
         return $this->productName;
     }
 
-    public function setProductName(string $productName): void
+    public function setProductName(?string $productName): void
     {
         $this->productName = $productName;
     }
@@ -168,9 +224,89 @@ final class FacadeCisItemResponse
         return $this->brand;
     }
 
-    public function setBrand(string $brand): void
+    public function setBrand(?string $brand): void
     {
         $this->brand = $brand;
+    }
+
+    public function getPrevCises(): ?array
+    {
+        return $this->prevCises;
+    }
+
+    public function setPrevCises(?array $prevCises): void
+    {
+        $this->prevCises = $prevCises;
+    }
+
+    public function getNextCises(): ?array
+    {
+        return $this->nextCises;
+    }
+
+    public function setNextCises(?array $nextCises): void
+    {
+        $this->nextCises = $nextCises;
+    }
+
+    public function getStatusEx(): ?string
+    {
+        return $this->statusEx;
+    }
+
+    public function setStatusEx(?string $statusEx): void
+    {
+        $this->statusEx = $statusEx;
+    }
+
+    public function getChildren(): ?array
+    {
+        return $this->children;
+    }
+
+    public function setChildren(array $children): void
+    {
+        $this->children = $children;
+    }
+
+    public function getCountChildren(): ?int
+    {
+        return $this->countChildren;
+    }
+
+    public function setCountChildren(?int $countChildren): void
+    {
+        $this->countChildren = $countChildren;
+    }
+
+    public function getParent(): ?string
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?string $parent): void
+    {
+        $this->parent = $parent;
+    }
+
+    public function getLastDocId(): ?string
+    {
+        return $this->lastDocId;
+    }
+
+    public function setLastDocId(?string $lastDocId): void
+    {
+        $this->lastDocId = $lastDocId;
+    }
+
+    public function getIntroductionDate(): ?string
+    {
+        return $this->introductionDate;
+    }
+
+    public function setIntroductionDate(?string $introductionDate): void
+    {
+        $this->introductionDate = $introductionDate;
     }
 
     public function getAgentInn(): ?string
@@ -191,5 +327,55 @@ final class FacadeCisItemResponse
     public function setAgentName(?string $agentName): void
     {
         $this->agentName = $agentName;
+    }
+
+    public function getLastStatusChangeDate(): string
+    {
+        return $this->lastStatusChangeDate;
+    }
+
+    public function setLastStatusChangeDate(string $lastStatusChangeDate): void
+    {
+        $this->lastStatusChangeDate = $lastStatusChangeDate;
+    }
+
+    public function getTurnoverType(): ?string
+    {
+        return $this->turnoverType;
+    }
+
+    public function setTurnoverType(?string $turnoverType): void
+    {
+        $this->turnoverType = $turnoverType;
+    }
+
+    public function getProductGroup(): string
+    {
+        return $this->productGroup;
+    }
+
+    public function setProductGroup(string $productGroup): void
+    {
+        $this->productGroup = $productGroup;
+    }
+
+    public function getTnVed10(): ?string
+    {
+        return $this->tnVed10;
+    }
+
+    public function setTnVed10(?string $tnVed10): void
+    {
+        $this->tnVed10 = $tnVed10;
+    }
+
+    public function getMarkWithdraw(): ?bool
+    {
+        return $this->markWithdraw;
+    }
+
+    public function setMarkWithdraw(?bool $markWithdraw): void
+    {
+        $this->markWithdraw = $markWithdraw;
     }
 }
