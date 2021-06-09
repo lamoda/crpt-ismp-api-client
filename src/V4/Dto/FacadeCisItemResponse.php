@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Lamoda\IsmpClient\V4\Dto;
 
-use Symfony\Component\Serializer\Annotation\SerializedName;
-
 final class FacadeCisItemResponse
 {
     public const STATUS_EMITTED = 'EMITTED';
@@ -15,55 +13,29 @@ final class FacadeCisItemResponse
     public const STATUS_RETIRED = 'RETIRED';
     public const STATUS_DISAGGREGATION = 'DISAGGREGATION';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $cis;
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $gtin = null;
-    /**
-     * @var string|null
-     * @SerializedName("producerName")
-     */
+    /** @var string|null */
     private $producerName = null;
-    /**
-     * @var string
-     */
+    /** @var string */
     private $status;
-    /**
-     * @var string
-     * @SerializedName("emissionDate")
-     */
+    /** @var string */
     private $emissionDate;
     /** @var string */
     private $emissionType;
     /** @var string|null */
     private $producedDate = null;
-    /**
-     * @var string
-     * @SerializedName("packType")
-     */
+    /** @var string|null */
     private $packType;
-    /**
-     * @var string|null
-     * @SerializedName("ownerName")
-     */
+    /** @var string|null */
     private $ownerName = null;
-    /**
-     * @var string|null
-     * @SerializedName("ownerInn")
-     */
+    /** @var string|null */
     private $ownerInn = null;
-    /**
-     * @var string|null
-     * @SerializedName("productName")
-     */
+    /** @var string|null */
     private $productName = null;
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     private $brand = null;
     /** @var string[]|null */
     private $prevCises = null;
@@ -71,32 +43,19 @@ final class FacadeCisItemResponse
     private $nextCises = null;
     /** @var string|null */
     private $statusEx = null;
-    /**
-     * @var FacadeCisItemResponse[]
-     */
+    /** @var FacadeCisItemResponse[] */
     private $children = [];
-    /**
-     * @var int|null
-     * @SerializedName("countChildren")
-     */
+    /** @var int|null */
     private $countChildren = null;
-    /**
-     * @var string|null
-     */
+    /**ъ @var string|null */
     private $parent= null;
-    /**
-     * @var string|null
-     * @SerializedName("agentInn")
-     */
+    /** @var string|null */
     private $lastDocId= null;
     /** @var string|null */
     private $introductionDate= null;
     /** @var string|null */
     private $agentInn= null;
-    /**
-     * @var string|null
-     * @SerializedName("agentName")
-     */
+    /** @var string|null */
     private $agentName= null;
     /** @var string */
     private $lastStatusChangeDate;
