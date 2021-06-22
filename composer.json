@@ -21,7 +21,7 @@
         }
     },
     "require": {
-        "php": "^7.2",
+        "php": "^7.2 || ^8.0",
         "doctrine/annotations": "^1.6",
         "doctrine/cache": "^1.8",
         "guzzlehttp/guzzle": "^6.3",
