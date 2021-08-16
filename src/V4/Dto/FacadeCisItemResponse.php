@@ -52,7 +52,7 @@ final class FacadeCisItemResponse
     /** @var string|null */
     private $lastDocId= null;
     /** @var string|null */
-    private $introductionDate= null;
+    private $introducedDate = null;
     /** @var string|null */
     private $agentInn= null;
     /** @var string|null */
@@ -258,14 +258,14 @@ final class FacadeCisItemResponse
         $this->lastDocId = $lastDocId;
     }
 
-    public function getIntroductionDate(): ?string
+    public function getIntroducedDate(): ?string
     {
-        return $this->introductionDate;
+        return $this->introducedDate;
     }
 
-    public function setIntroductionDate(?string $introductionDate): void
+    public function setIntroducedDate(?string $introducedDate): void
     {
-        $this->introductionDate = $introductionDate;
+        $this->introducedDate = $introducedDate;
     }
 
     public function getAgentInn(): ?string
