@@ -82,8 +82,18 @@ final class FacadeCisListResponseDenormalizerTest extends TestCase
 
         $item1 = new FacadeCisItemResponse();
         $item1->setCis('cis1');
+        $item1->setCertDoc([
+            'type' => 'SOME_CERTIFICATE',
+            'number' => '000001',
+            'date' => '2021-08-24',
+        ]);
         $item2 = new FacadeCisItemResponse();
         $item2->setCis('cis2');
+        $item2->setCertDoc([
+            'type' => 'SOME_CERTIFICATE',
+            'number' => '000002',
+            'date' => '2021-08-24',
+        ]);
 
         $expectedResult = new FacadeCisListResponse($item1, $item2);
 

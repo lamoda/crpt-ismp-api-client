@@ -67,6 +67,8 @@ final class FacadeCisItemResponse
     private $tnVed10= null;
     /** @var bool|null */
     private $markWithdraw = null;
+    /** @var array */
+    private $certDoc = [];
 
     public function getCis(): string
     {
@@ -336,5 +338,15 @@ final class FacadeCisItemResponse
     public function setMarkWithdraw(?bool $markWithdraw): void
     {
         $this->markWithdraw = $markWithdraw;
+    }
+
+    public function getCertDoc(): array
+    {
+        return $this->certDoc;
+    }
+
+    public function setCertDoc(array $certDoc): void
+    {
+        $this->certDoc = $certDoc;
     }
 }
