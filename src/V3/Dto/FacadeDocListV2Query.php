@@ -6,6 +6,8 @@ namespace Lamoda\IsmpClient\V3\Dto;
 
 final class FacadeDocListV2Query
 {
+    public const DATETIME_FORMAT = 'Y-m-d\TH:i:s.v\Z';
+
     public const DOCUMENT_STATUS_IN_PROGRESS = 'IN_PROGRESS';
     public const DOCUMENT_STATUS_CHECKED_OK = 'CHECKED_OK';
     public const DOCUMENT_STATUS_CHECKED_NOT_OK = 'CHECKED_NOT_OK';
@@ -224,10 +226,10 @@ final class FacadeDocListV2Query
         $query = [];
 
         self::appendIfNotNull($query, 'dateTo', $this->dateTo, static function (\DateTimeInterface $value) {
-            return $value->format(DATE_RFC3339_EXTENDED);
+            return $value->format(self::DATETIME_FORMAT);
         });
         self::appendIfNotNull($query, 'dateFrom', $this->dateFrom, static function (\DateTimeInterface $value) {
-            return $value->format(DATE_RFC3339_EXTENDED);
+            return $value->format(self::DATETIME_FORMAT);
         });
         self::appendIfNotNull($query, 'number', $this->number);
         self::appendIfNotNull($query, 'documentStatus', $this->documentStatus);

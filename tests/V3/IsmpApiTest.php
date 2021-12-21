@@ -294,7 +294,7 @@ final class IsmpApiTest extends TestCase
                     RequestOptions::HTTP_ERRORS => true,
                     RequestOptions::QUERY => [
                         'documentStatus' => FacadeDocListV2Query::DOCUMENT_STATUS_CHECKED_OK,
-                        'dateFrom' => '2019-01-01T11:12:13.000+00:00',
+                        'dateFrom' => '2019-01-01T11:12:13.000Z',
                         'limit' => $query->getLimit(),
                     ],
                 ]

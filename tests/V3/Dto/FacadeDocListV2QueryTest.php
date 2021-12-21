@@ -28,11 +28,11 @@ final class FacadeDocListV2QueryTest extends TestCase
         $dateTests = [
             'DateTime in UTC timezone' => [
                 new \DateTime('2019-12-16 18:45:11', new \DateTimeZone('UTC')),
-                '2019-12-16T18:45:11.000+00:00',
+                '2019-12-16T18:45:11.000Z',
             ],
             'DateTimeImmutable in custom timezone' => [
                 new \DateTimeImmutable('2019-12-16 18:45:11', new \DateTimeZone('Europe/Moscow')),
-                '2019-12-16T18:45:11.000+03:00',
+                '2019-12-16T18:45:11.000Z',
             ],
         ];
 
