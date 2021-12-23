@@ -69,6 +69,10 @@ final class FacadeCisItemResponse
     private $markWithdraw = null;
     /** @var array */
     private $certDoc = [];
+    /** @var string|null */
+    private $withdrawReason = null;
+    /** @var string|null */
+    private $withdrawReasonOther = null;
 
     public function getCis(): string
     {
@@ -348,5 +352,25 @@ final class FacadeCisItemResponse
     public function setCertDoc(array $certDoc): void
     {
         $this->certDoc = $certDoc;
+    }
+
+    public function getWithdrawReason(): ?string
+    {
+        return $this->withdrawReason;
+    }
+
+    public function setWithdrawReason(?string $withdrawReason): void
+    {
+        $this->withdrawReason = $withdrawReason;
+    }
+
+    public function getWithdrawReasonOther(): ?string
+    {
+        return $this->withdrawReasonOther;
+    }
+
+    public function setWithdrawReasonOther(?string $withdrawReasonOther): void
+    {
+        $this->withdrawReasonOther = $withdrawReasonOther;
     }
 }

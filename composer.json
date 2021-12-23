@@ -33,6 +33,9 @@
         "ext-json": "*",
         "phpunit/phpunit": "^8.5"
     },
+    "scripts": {
+        "test": "phpunit"
+    },
     "config": {
         "platform": {
             "php": "7.2"
