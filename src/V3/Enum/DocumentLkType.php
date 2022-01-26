@@ -66,4 +66,6 @@ final class DocumentLkType
     public const LP_FTS_INTRODUCE = 'LP_FTS_INTRODUCE'; // Ввод в оборот. Импорт с ФТС. JSON (MANUAL)
     public const LP_FTS_INTRODUCE_CSV = 'LP_FTS_INTRODUCE_CSV'; // Ввод в оборот. Импорт с ФТС. CSV
     public const LP_FTS_INTRODUCE_XML = 'LP_FTS_INTRODUCE_XML'; // Ввод в оборот. Импорт с ФТС. XML
+    public const EAS_CROSSBORDER_EXPORT = 'EAS_CROSSBORDER_EXPORT'; // Отгрузка в ЕАЭС с признанием КИ (экспорт)
+    public const EAS_CROSSBORDER_EXPORT_CSV = 'EAS_CROSSBORDER_EXPORT_CSV'; // Отгрузка в ЕАЭС с признанием КИ (экспорт). CSV
 }
