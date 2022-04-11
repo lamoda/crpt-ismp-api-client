@@ -26,7 +26,7 @@ final class FacadeCisListResponseDenormalizer implements ContextAwareDenormalize
      *
      * @throws NotNormalizableValueException
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): FacadeCisListResponse
     {
         if (null === $this->denormalizer) {
             throw new BadMethodCallException('Please set a serializer before calling denormalize()!');
@@ -49,7 +49,7 @@ final class FacadeCisListResponseDenormalizer implements ContextAwareDenormalize
     /**
      * {@inheritdoc}
      */
-    public function supportsDenormalization($data, $type, $format = null, array $context = [])
+    public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
     {
         return FacadeCisListResponse::class === $type;
     }

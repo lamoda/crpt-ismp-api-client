@@ -24,10 +24,10 @@
         "php": "^7.2 || ^8.0",
         "doctrine/annotations": "^1.6",
         "doctrine/cache": "^1.8",
-        "guzzlehttp/guzzle": "^6.3",
-        "symfony/property-access": "^4.2 || ^5.0",
-        "symfony/property-info": "^4.3 || ^5.0",
-        "symfony/serializer": "^4.2.10 || ^5.0"
+        "guzzlehttp/guzzle": "^6.3 || ^7.4",
+        "symfony/property-access": "^4.2 || ^5.0 || ^6.0",
+        "symfony/property-info": "^4.3 || ^5.0 || ^6.0",
+        "symfony/serializer": "^4.2.10 || ^5.0 || ^6.0"
     },
     "require-dev": {
         "ext-json": "*",

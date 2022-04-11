@@ -25,7 +25,7 @@ final class FacadeDocBodyResponseBodyDenormalizer implements ContextAwareDenorma
     /**
      * {@inheritdoc}
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, $class, $format = null, array $context = []): Body
     {
         if (null === $this->denormalizer) {
             throw new BadMethodCallException('Please set a serializer before calling denormalize()!');
